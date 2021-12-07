@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
+import 'package:job/models/business_model.dart';
 import 'package:job/models/company.dart';
+import 'package:job/models/job_model.dart';
 
 class CompanyCard2 extends StatelessWidget {
-  final Company? company;
-  CompanyCard2({this.company});
+  final JobModel? job;
+  final BusinessModel? business;
+  CompanyCard2({required this.job, required this.business});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,21 +30,24 @@ class CompanyCard2 extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                    image: AssetImage(company!.image!),
+                    image: NetworkImage(business!.businessLogoPath),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               Spacer(),
               Text(
-                company!.sallary!,
+                job!.salaryFrom.toString() +
+                    "€/h - " +
+                    job!.salaryTo.toString() +
+                    "€/h",
                 style: kTitleStyle,
               ),
             ],
           ),
           SizedBox(height: 15.0),
           Text(
-            company!.job!,
+            job!.jobName,
             style: kTitleStyle,
           ),
           SizedBox(height: 15.0),
@@ -49,7 +55,7 @@ class CompanyCard2 extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: company!.companyName,
+                  text: business!.businessName,
                   style: kSubtitleStyle,
                 ),
                 TextSpan(
@@ -57,7 +63,7 @@ class CompanyCard2 extends StatelessWidget {
                   style: kSubtitleStyle,
                 ),
                 TextSpan(
-                  text: company!.city,
+                  text: business!.businessCategory.name,
                   style: kSubtitleStyle,
                 ),
               ],
@@ -66,30 +72,41 @@ class CompanyCard2 extends StatelessWidget {
           SizedBox(height: 15.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: company!.tag!
-                .map(
-                  (e) => Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(right: 10.0),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.white,
-                      border: Border.all(
-                        color: kBlack,
-                        width: 0.5,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: job!.jobTags
+                    .map(
+                      (e) => Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.only(right: 10.0),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 12.0, vertical: 5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.white,
+                          border: Border.all(
+                            color: kBlack,
+                            width: 0.5,
+                          ),
+                        ),
+                        child: Text(
+                          e.name,
+                          style: kSubtitleStyle.copyWith(
+                            fontSize: 12.0,
+                          ),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      e,
-                      style: kSubtitleStyle.copyWith(
-                        fontSize: 12.0,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
+                    )
+                    .toList(),
+              ),
+              Text(
+                "3 đăng kí",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
+import 'package:job/models/business_model.dart';
 import 'package:job/models/company.dart';
 
 class CompanyTab extends StatelessWidget {
-  final Company? company;
-  CompanyTab({this.company});
+  final BusinessModel? business;
+  CompanyTab({this.business});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +18,7 @@ class CompanyTab extends StatelessWidget {
           ),
           SizedBox(height: 15.0),
           Text(
-            company!.aboutCompany!,
+            business!.businessDescription,
             style: kSubtitleStyle.copyWith(
               fontWeight: FontWeight.w300,
               height: 1.5,

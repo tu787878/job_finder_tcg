@@ -1,5 +1,8 @@
 # job
 
+
+flutter run --no-sound-null-safety
+
 A new Flutter project.
 
 ## Getting Started

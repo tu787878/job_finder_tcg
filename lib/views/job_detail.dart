@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:job/models/business_model.dart';
 import 'package:job/models/company.dart';
 import 'package:job/constants.dart';
+import 'package:job/models/job_model.dart';
+import 'package:job/models/job_tag_model.dart';
 import 'package:job/views/company_tab.dart';
 import 'package:job/views/description_tab.dart';
 
 class JobDetail extends StatelessWidget {
-  final Company? company;
-  JobDetail({this.company});
+  final JobModel? job;
+  final BusinessModel? business;
+
+  JobDetail({required this.job, required this.business});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,7 @@ class JobDetail extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          company!.companyName!,
+          job!.jobName,
           style: kTitleStyle,
         ),
         centerTitle: true,
@@ -54,7 +59,7 @@ class JobDetail extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
                           image: DecorationImage(
-                            image: AssetImage(company!.image!),
+                            image: NetworkImage(business!.businessLogoPath),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -62,20 +67,23 @@ class JobDetail extends StatelessWidget {
                     ),
                     SizedBox(height: 20.0),
                     Text(
-                      company!.job!,
+                      job!.jobName,
                       style: kTitleStyle.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: 15.0),
                     Text(
-                      company!.sallary!,
+                      job!.salaryFrom.toString() +
+                          "€/h - " +
+                          job!.salaryTo.toString() +
+                          "€/h",
                       style: kSubtitleStyle,
                     ),
                     SizedBox(height: 15.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: company!.tag!
+                      children: job!.jobTags
                           .map(
                             (e) => Container(
                               margin: EdgeInsets.symmetric(horizontal: 5.0),
@@ -89,7 +97,7 @@ class JobDetail extends StatelessWidget {
                                     Border.all(color: kBlack.withOpacity(.5)),
                               ),
                               child: Text(
-                                e,
+                                e.name,
                                 style: kSubtitleStyle,
                               ),
                             ),
@@ -125,8 +133,8 @@ class JobDetail extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    DescriptionTab(company: company),
-                    CompanyTab(company: company),
+                    DescriptionTab(job: job),
+                    CompanyTab(business: business),
                   ],
                 ),
               )
