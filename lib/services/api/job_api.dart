@@ -15,7 +15,7 @@ class JobApi {
   late final Box box = Hive.box('authenticationBox');
   late final String host = UrlModel.toUrl();
 
-  Future<List<Tuple>> getJobs(QuerySearch query) async {
+  Future<List<JobModel>> getJobs(QuerySearch query) async {
     var token = box.get('access_token');
     if (token != null) {
       String url = host + "/api/jobs" + query.toQuery();
@@ -26,34 +26,13 @@ class JobApi {
           'Authorization': 'Bearer ' + token.toString(),
         },
       );
-      // print(response.statusCode);
 
-      // print(json.decode(response.body)['data']['business']);
       if (response.statusCode == 200 || response.statusCode == 400) {
-        // print(json.decode(response.body)['data']['jobs'][0]["business"]);
-
         List<JobModel> jobModels =
             json.decode(response.body)['data']['jobs'].map<JobModel>((data) {
-          data = data['job'];
           return new JobModel.fromJson(data);
         }).toList();
-
-        List<BusinessModel> businessModels = json
-            .decode(response.body)['data']['jobs']
-            .map<BusinessModel>((data) {
-          data = data['business'];
-          return new BusinessModel.fromJson(data);
-        }).toList();
-
-        // print(businessModels[0].businessName);
-        List<Tuple> list = [];
-
-        for (int i = 0; i < jobModels.length; i++) {
-          JobModel j = jobModels[i];
-          BusinessModel n = businessModels[i];
-          list.add(new Tuple(item1: j, item2: n));
-        }
-        return list;
+        return jobModels;
       } else {
         throw Exception('Api fail!');
       }

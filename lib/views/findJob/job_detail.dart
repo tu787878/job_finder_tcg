@@ -4,14 +4,13 @@ import 'package:job/models/company.dart';
 import 'package:job/constants.dart';
 import 'package:job/models/job_model.dart';
 import 'package:job/models/job_tag_model.dart';
-import 'package:job/views/company_tab.dart';
-import 'package:job/views/description_tab.dart';
+import 'package:job/views/findJob/company_tab.dart';
+import 'package:job/views/findJob/description_tab.dart';
 
 class JobDetail extends StatelessWidget {
   final JobModel? job;
-  final BusinessModel? business;
 
-  JobDetail({required this.job, required this.business});
+  JobDetail({required this.job});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +58,7 @@ class JobDetail extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
                           image: DecorationImage(
-                            image: NetworkImage(business!.businessLogoPath),
+                            image: NetworkImage(job!.business.businessLogoPath),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -134,7 +133,7 @@ class JobDetail extends StatelessWidget {
                 child: TabBarView(
                   children: [
                     DescriptionTab(job: job),
-                    CompanyTab(business: business),
+                    CompanyTab(business: job!.business),
                   ],
                 ),
               )

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:job/models/login_model.dart';
 import 'package:job/services/auth/Auth.dart';
-import 'package:job/views/tabs.dart';
-import 'animation/FadeAnimation.dart';
+import 'package:job/views/main/tabs.dart';
+import '../animation/FadeAnimation.dart';
 
 class LoginPage extends StatelessWidget {
   final usernameController = TextEditingController();

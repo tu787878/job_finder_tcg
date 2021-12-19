@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:job/constants.dart';
+import 'package:job/models/job_model.dart';
 import 'package:job/models/query_search.dart';
 import 'package:job/models/tupel.dart';
 import 'package:job/services/api/job_api.dart';
-import 'package:job/views/job_detail.dart';
+import 'package:job/views/findJob/job_detail.dart';
 import 'package:job/widgets/appbar.dart';
 import 'package:job/widgets/company_card.dart';
 import 'package:job/widgets/company_card2.dart';
@@ -76,7 +77,7 @@ class FindPeople extends StatelessWidget {
               SizedBox(height: 15.0),
               FutureBuilder(
                 future: JobApi().getJobs(queryNewJobsBasic),
-                builder: (context, AsyncSnapshot<List<Tuple>> snapshot) {
+                builder: (context, AsyncSnapshot<List<JobModel>> snapshot) {
                   if (snapshot.hasData) {
                     var tuples = snapshot.data;
                     return Container(
@@ -88,31 +89,32 @@ class FindPeople extends StatelessWidget {
                         shrinkWrap: true,
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          var job = tuples[index].item1;
-                          var business = tuples[index].item2;
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => JobDetail(
-                                    job: job,
-                                    business: business,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: index == 0
-                                ? CompanyCard(job: job, business: business)
-                                : CompanyCard2(job: job, business: business),
-                          );
+                          print(tuples[index]);
+                          return Text("nghia");
+                          // var job = tuples[index].item1;
+                          // var business = tuples[index].item2;
+                          // return InkWell(
+                          //   onTap: () {
+                          //     Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (context) => JobDetail(
+                          //           job: job,
+                          //           business: business,
+                          //         ),
+                          //       ),
+                          //     );
+                          //   },
+                          //   child: index == 0
+                          //       ? CompanyCard(job: job, business: business)
+                          //       : CompanyCard2(job: job, business: business),
+                          // );
                         },
                       ),
                     );
                   } else if (snapshot.hasError) {
                     return Text(
                       'There was an error :(',
-                      style: Theme.of(context).textTheme.headline,
                     );
                   } else {
                     return CircularProgressIndicator();

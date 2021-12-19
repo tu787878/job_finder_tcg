@@ -146,7 +146,6 @@ class _UploadJobState extends State<UploadJob> {
               } else if (snapshot.hasError) {
                 return Text(
                   'There was an error :(',
-                  style: Theme.of(context).textTheme.headline,
                 );
               } else {
                 return CircularProgressIndicator();
@@ -176,7 +175,6 @@ class _UploadJobState extends State<UploadJob> {
               } else if (snapshot.hasError) {
                 return Text(
                   'There was an error :(',
-                  style: Theme.of(context).textTheme.headline,
                 );
               } else {
                 return CircularProgressIndicator();
@@ -254,7 +252,6 @@ class _UploadJobState extends State<UploadJob> {
                     } else if (snapshot.hasError) {
                       return Text(
                         'There was an error :(',
-                        style: Theme.of(context).textTheme.headline,
                       );
                     } else {
                       return CircularProgressIndicator();
@@ -364,7 +361,7 @@ class _UploadJobState extends State<UploadJob> {
                   JobModel job = new JobModel(
                     jobId: "",
                     jobName: this._jobNameController.text,
-                    businessId: businessId,
+                    business: businessId,
                     jobDescription: this._jobDescription.text,
                     jobAddress: this._jobAddress.text,
                     workingTime: this._jobWorkingTime.text,

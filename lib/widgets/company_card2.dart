@@ -6,13 +6,13 @@ import 'package:job/models/job_model.dart';
 
 class CompanyCard2 extends StatelessWidget {
   final JobModel? job;
-  final BusinessModel? business;
-  CompanyCard2({required this.job, required this.business});
+  CompanyCard2({required this.job});
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 280.0,
-      margin: EdgeInsets.only(right: 15.0),
+      height: 250.0,
+      margin: EdgeInsets.only(right: 15.0, bottom: 15.0),
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
@@ -30,7 +30,7 @@ class CompanyCard2 extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                    image: NetworkImage(business!.businessLogoPath),
+                    image: NetworkImage(job!.business.businessLogoPath),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -55,7 +55,7 @@ class CompanyCard2 extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: business!.businessName,
+                  text: job!.business.businessName,
                   style: kSubtitleStyle,
                 ),
                 TextSpan(
@@ -63,7 +63,7 @@ class CompanyCard2 extends StatelessWidget {
                   style: kSubtitleStyle,
                 ),
                 TextSpan(
-                  text: business!.businessCategory.name,
+                  text: job!.business.businessCategory.name,
                   style: kSubtitleStyle,
                 ),
               ],

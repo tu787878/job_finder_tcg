@@ -1,3 +1,4 @@
+import 'package:job/models/business_model.dart';
 import 'package:job/models/city_model.dart';
 import 'package:job/models/job_category_model.dart';
 import 'package:job/models/job_tag_model.dart';
@@ -5,7 +6,7 @@ import 'package:job/models/job_tag_model.dart';
 class JobModel {
   final String jobId;
   final String jobName;
-  final String businessId;
+  final BusinessModel business;
   final String jobDescription;
   final String jobAddress;
   final String workingTime;
@@ -27,7 +28,7 @@ class JobModel {
   const JobModel({
     required this.jobId,
     required this.jobName,
-    required this.businessId,
+    required this.business,
     required this.jobDescription,
     required this.jobAddress,
     required this.workingTime,
@@ -51,7 +52,7 @@ class JobModel {
     return JobModel(
       jobId: json['jobId'] != null ? json['jobId'] : '',
       jobName: json['jobName'] != null ? json['jobName'] : '',
-      businessId: json['businessId'] != null ? json['businessId'] : '',
+      business: BusinessModel.fromJson(json['business']),
       jobDescription:
           json['jobDescription'] != null ? json['jobDescription'] : '',
       jobAddress: json['jobAddress'] != null ? json['jobAddress'] : '',

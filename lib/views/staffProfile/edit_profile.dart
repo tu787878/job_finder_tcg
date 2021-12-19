@@ -104,7 +104,6 @@ class _EditprofileState extends State<Editprofile> {
                     } else if (snapshot.hasError) {
                       return Text(
                         'There was an error :(',
-                        style: Theme.of(context).textTheme.headline,
                       );
                     } else {
                       return CircularProgressIndicator();
@@ -145,7 +144,6 @@ class _EditprofileState extends State<Editprofile> {
         } else if (snapshot.hasError) {
           return Text(
             'There was an error :(',
-            style: Theme.of(context).textTheme.headline,
           );
         } else {
           return CircularProgressIndicator();

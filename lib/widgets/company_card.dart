@@ -4,17 +4,17 @@ import 'package:job/models/business_model.dart';
 import 'package:job/models/company.dart';
 import 'package:job/models/job_model.dart';
 import 'package:job/services/api/job_api.dart';
-import 'package:job/views/job_detail.dart';
+import 'package:job/views/findJob/job_detail.dart';
 
 class CompanyCard extends StatelessWidget {
   final JobModel? job;
-  final BusinessModel? business;
-  CompanyCard({required this.job, required this.business});
+  CompanyCard({required this.job});
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 280.0,
-      margin: EdgeInsets.only(right: 15.0),
+      height: 200.0,
+      margin: EdgeInsets.only(right: 15.0, bottom: 15.0),
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
@@ -32,7 +32,7 @@ class CompanyCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                    image: NetworkImage(business!.businessLogoPath),
+                    image: NetworkImage(job!.business.businessLogoPath),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -60,7 +60,7 @@ class CompanyCard extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: business!.businessName,
+                  text: job!.business.businessName,
                   style: kSubtitleStyle.copyWith(
                     color: Colors.white,
                   ),
@@ -72,7 +72,7 @@ class CompanyCard extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: business!.businessCategory.name,
+                  text: job!.business.businessCategory.name,
                   style: kSubtitleStyle.copyWith(
                     color: Colors.white,
                   ),

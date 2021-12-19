@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:job/views/tabs.dart';
 import 'package:job/views/welcom_page.dart';
+import 'package:job/widgets/open_app_loader.dart';
 
 import 'services/auth/Auth.dart';
 
@@ -26,10 +27,14 @@ class MyApp extends StatelessWidget {
       home: FutureBuilder(
         future: authService.tokenIsActive(),
         builder: (context, snapshot) {
-          if (snapshot.data == true) {
-            return Tabs();
+          if (snapshot.hasData) {
+            if (snapshot.data == true) {
+              return Tabs();
+            } else {
+              return WelcomPage();
+            }
           } else {
-            return WelcomPage();
+            return OpenAppLoader();
           }
         },
       ),

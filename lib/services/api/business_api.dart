@@ -54,7 +54,7 @@ class BusinessApi {
             .map<JobModel>((data) => new JobModel.fromJson(data))
             .toList();
         print("jobModels[0].businessId");
-        print(jobModels[0].businessId);
+        print(jobModels[0].business);
         return jobModels;
       } else {
         throw Exception('Fail to load data!');
@@ -146,7 +146,7 @@ class BusinessApi {
         },
         body: jsonEncode(<String, String>{
           "jobName": job.jobName,
-          "businessId": job.businessId,
+          "business": job.business.toString(),
           "jobDescription": job.jobDescription,
           "jobAddress": job.jobAddress,
           "workingTime": job.workingTime,

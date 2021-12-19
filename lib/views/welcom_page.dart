@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'animation/FadeAnimation.dart';
-import 'login.dart';
-import 'signup.dart';
+import 'signin/login.dart';
+import 'signup/signup.dart';
 
 class WelcomPage extends StatelessWidget {
   @override

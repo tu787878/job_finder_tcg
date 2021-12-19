@@ -4,7 +4,7 @@ import 'package:job/models/business_model.dart';
 import 'package:job/models/company.dart';
 import 'package:job/models/job_model.dart';
 import 'package:job/services/api/business_api.dart';
-import 'package:job/views/job_detail.dart';
+import 'package:job/views/findJob/job_detail.dart';
 import 'package:job/widgets/appbar_widget.dart';
 import 'package:job/widgets/job_mini_card.dart';
 import 'package:job/widgets/numbers_widget.dart';
@@ -49,7 +49,6 @@ class _ProfilePageState extends State<ProfilePage> {
         } else if (snapshot.hasError) {
           return Text(
             'There was an error :(',
-            style: Theme.of(context).textTheme.headline,
           );
         } else {
           return CircularProgressIndicator();
@@ -141,7 +140,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           MaterialPageRoute(
                             builder: (context) => JobDetail(
                               job: null,
-                              business: null,
                             ),
                           ),
                         );
@@ -165,7 +163,6 @@ class _ProfilePageState extends State<ProfilePage> {
         } else if (snapshot.hasError) {
           return Text(
             'There was an error :(',
-            style: Theme.of(context).textTheme.headline,
           );
         } else {
           return CircularProgressIndicator();

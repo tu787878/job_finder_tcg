@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:job/views/profile_page.dart';
+import 'package:job/views/staffProfile/profile_page.dart';
 
 import '../constants.dart';
 
