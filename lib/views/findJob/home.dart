@@ -6,7 +6,16 @@ import 'package:job/views/findJob/newJob.dart';
 import 'package:job/views/upload_job.dart';
 import 'package:job/widgets/appbar.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  final searchParams = {};
+
+  // Home({this.searchParams});
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

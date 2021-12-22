@@ -15,7 +15,33 @@ class JobApi {
   late final Box box = Hive.box('authenticationBox');
   late final String host = UrlModel.toUrl();
 
-  Future<List<JobModel>> getJobs(QuerySearch query) async {
+  Future<List<JobModel>> getHotJobs(QuerySearch query) async {
+    var token = box.get('access_token');
+    if (token != null) {
+      String url = host + "/api/jobs" + query.toQuery();
+      final response = await http.get(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ' + token.toString(),
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 400) {
+        List<JobModel> jobModels =
+            json.decode(response.body)['data']['jobs'].map<JobModel>((data) {
+          return new JobModel.fromJson(data);
+        }).toList();
+        return jobModels;
+      } else {
+        throw Exception('Api fail!');
+      }
+    } else {
+      throw Exception('Api fail!');
+    }
+  }
+
+  Future<List<JobModel>> getNewJobs(QuerySearch query) async {
     var token = box.get('access_token');
     if (token != null) {
       String url = host + "/api/jobs" + query.toQuery();

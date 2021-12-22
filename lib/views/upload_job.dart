@@ -148,7 +148,7 @@ class _UploadJobState extends State<UploadJob> {
                   'There was an error :(',
                 );
               } else {
-                return CircularProgressIndicator();
+                return Container();
               }
             },
           ),
@@ -177,7 +177,7 @@ class _UploadJobState extends State<UploadJob> {
                   'There was an error :(',
                 );
               } else {
-                return CircularProgressIndicator();
+                return Container();
               }
             },
           ),
@@ -254,7 +254,7 @@ class _UploadJobState extends State<UploadJob> {
                         'There was an error :(',
                       );
                     } else {
-                      return CircularProgressIndicator();
+                      return Container();
                     }
                   },
                 ),

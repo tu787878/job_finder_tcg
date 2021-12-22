@@ -19,7 +19,7 @@ class _TabsState extends State<Tabs> {
     });
   }
 
-  List<Widget> _tabs = [Home(), FindPeople(), Home(), JobLoadingSkeleton()];
+  List<Widget> _tabs = [Home(), FindPeople(), Home(), Home()];
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:job/constants.dart';
+import 'package:job/views/findJob/filter_item.dart';
 
 class FindJob extends StatelessWidget {
   @override
@@ -43,23 +44,59 @@ class FindJob extends StatelessWidget {
                 ),
               ),
               Container(
-                width: 50.0,
-                height: 50.0,
-                margin: EdgeInsets.only(left: 12.0),
-                decoration: BoxDecoration(
-                  color: kBlack,
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: Icon(
-                  FontAwesomeIcons.slidersH,
-                  color: Colors.white,
-                  size: 20.0,
-                ),
-              )
+                  width: 50.0,
+                  height: 50.0,
+                  margin: EdgeInsets.only(left: 12.0),
+                  decoration: BoxDecoration(
+                    color: kBlack,
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: MaterialButton(
+                    child: Icon(
+                      FontAwesomeIcons.slidersH,
+                      color: Colors.white,
+                      size: 20.0,
+                    ),
+                    onPressed: () => _showMyDialog(context),
+                  ))
             ],
           ),
         ),
       ],
     ));
+  }
+
+  Future<void> _showMyDialog(context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Filter by'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[FilterItem(), FilterItem(), FilterItem()],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Save'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Colors.red),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

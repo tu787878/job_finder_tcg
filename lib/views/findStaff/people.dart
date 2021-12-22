@@ -76,7 +76,7 @@ class FindPeople extends StatelessWidget {
               ),
               SizedBox(height: 15.0),
               FutureBuilder(
-                future: JobApi().getJobs(queryNewJobsBasic),
+                future: JobApi().getHotJobs(queryNewJobsBasic),
                 builder: (context, AsyncSnapshot<List<JobModel>> snapshot) {
                   if (snapshot.hasData) {
                     var tuples = snapshot.data;

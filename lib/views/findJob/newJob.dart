@@ -4,7 +4,6 @@ import 'package:job/models/job_model.dart';
 import 'package:job/models/query_search.dart';
 import 'package:job/services/api/job_api.dart';
 import 'package:job/views/findJob/job_detail.dart';
-import 'package:job/widgets/company_card.dart';
 import 'package:job/widgets/company_card2.dart';
 
 class NewJob extends StatelessWidget {
@@ -13,12 +12,12 @@ class NewJob extends StatelessWidget {
     return (Column(
       children: [
         Text(
-          "Công việc mới",
+          "Mới",
           style: kTitleStyle,
         ),
         SizedBox(height: 15.0),
         FutureBuilder(
-          future: JobApi().getJobs(queryNewJobsBasic),
+          future: JobApi().getNewJobs(queryNewJobsBasic),
           builder: (context, AsyncSnapshot<List<JobModel>> snapshot) {
             if (snapshot.hasData) {
               var tuples = snapshot.data;
@@ -30,20 +29,17 @@ class NewJob extends StatelessWidget {
                 itemBuilder: (context, index) {
                   var job = tuples[index];
                   return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => JobDetail(
-                            job: job,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => JobDetail(
+                              job: job,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: index == 0
-                        ? CompanyCard(job: job)
-                        : CompanyCard2(job: job),
-                  );
+                        );
+                      },
+                      child: CompanyCard2(job: job));
                 },
               );
             } else if (snapshot.hasError) {

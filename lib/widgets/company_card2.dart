@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
-import 'package:job/models/business_model.dart';
-import 'package:job/models/company.dart';
 import 'package:job/models/job_model.dart';
 
 class CompanyCard2 extends StatelessWidget {
@@ -11,7 +9,7 @@ class CompanyCard2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 280.0,
-      height: 250.0,
+      // height: 200.0,
       margin: EdgeInsets.only(right: 15.0, bottom: 15.0),
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
