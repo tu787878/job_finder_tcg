@@ -15,7 +15,7 @@ class JobResponse {
 
   factory JobResponse.fromJson(Map<String, dynamic> json) {
     return JobResponse(
-      job: JobModel.fromJson(json['code']),
+      job: JobModel.fromJson(json['job']),
       subscribers: json['subscribers'] != null ? json['subscribers'] : '',
       isApplied: json['isApplied'] != null ? json['isApplied'] : '',
       statusApplied:

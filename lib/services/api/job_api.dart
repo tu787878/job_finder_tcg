@@ -19,7 +19,7 @@ class JobApi {
   Future<List<JobResponse>> getHotJobs(QuerySearch query) async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/jobs/relate" + query.toQuery();
+      String url = host + "/api/jobs/relate";
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
@@ -30,7 +30,7 @@ class JobApi {
 
       if (response.statusCode == 200 || response.statusCode == 400) {
         List<JobResponse> jobModels =
-            json.decode(response.body)['data']['jobs'].map<JobModel>((data) {
+            json.decode(response.body)['data']['jobs'].map<JobResponse>((data) {
           return new JobResponse.fromJson(data);
         }).toList();
         return jobModels;
@@ -45,7 +45,7 @@ class JobApi {
   Future<List<JobResponse>> getNewJobs(QuerySearch query) async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/jobs" + query.toQuery();
+      String url = host + "/api/jobs";
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
@@ -56,8 +56,7 @@ class JobApi {
 
       if (response.statusCode == 200 || response.statusCode == 400) {
         List<JobResponse> jobModels =
-            json.decode(response.body)['data']['jobs'].map<JobModel>((data) {
-          print(data);
+            json.decode(response.body)['data']['jobs'].map<JobResponse>((data) {
           return new JobResponse.fromJson(data);
         }).toList();
         return jobModels;
