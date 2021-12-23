@@ -1,27 +1,43 @@
 class QuerySearch {
-  final int limit;
-  final String orderBy;
-  final String orderType;
-  final String search;
+  final int? page;
+  final int? count;
 
   QuerySearch({
-    required this.limit,
-    required this.orderBy,
-    required this.orderType,
-    required this.search,
+    this.page,
+    this.count,
   });
 
   toQuery() {
-    return "?limit=" +
-        this.limit.toString() +
-        "&orderBy=" +
-        this.orderBy +
-        "&orderType=" +
-        this.orderType +
-        "&search=" +
-        this.search;
+    return "?page=" + this.page.toString() + "&count=" + this.count.toString();
   }
 }
 
-QuerySearch queryNewJobsBasic = new QuerySearch(
-    limit: 10, orderBy: "created_time", orderType: "DESC", search: "");
+QuerySearch queryNewJobsBasic = new QuerySearch(page: 0, count: 10);
+
+class Jobquery extends QuerySearch {
+  late final String? area;
+  late final String? cityId;
+  late final String? jobCategoryId;
+  late final int? jobSalaryFrom;
+  late final int? jobSalaryTo;
+  late final String? orderBy;
+  late final String? orderType;
+  late final int? postCode;
+  late final String? search;
+  late final String? tags;
+
+  Jobquery({
+    page,
+    count,
+    this.area,
+    this.cityId,
+    this.jobCategoryId,
+    this.jobSalaryFrom,
+    this.jobSalaryTo,
+    this.orderBy,
+    this.orderType,
+    this.postCode,
+    this.search,
+    this.tags,
+  }) : super(page: page, count: count);
+}

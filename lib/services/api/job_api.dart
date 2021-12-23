@@ -18,7 +18,7 @@ class JobApi {
   Future<List<JobModel>> getHotJobs(QuerySearch query) async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/jobs" + query.toQuery();
+      String url = host + "/api/jobs/relate" + query.toQuery();
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
