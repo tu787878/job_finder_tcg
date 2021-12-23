@@ -14,7 +14,7 @@ class HotJob extends StatelessWidget {
   Widget build(BuildContext context) {
     return (Column(children: [
       Text(
-        "Nổi bật",
+        "Dành cho bạn",
         style: kTitleStyle,
       ),
       SizedBox(height: 15.0),
