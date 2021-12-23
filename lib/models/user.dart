@@ -1,25 +1,51 @@
-class User {
-  final String imagePath;
-  final String name;
-  final String email;
-  final String about;
-  final bool isDarkMode;
+import 'package:job/models/city_model.dart';
+import 'package:job/models/job_category_model.dart';
 
-  const User({
-    required this.imagePath,
-    required this.name,
-    required this.email,
-    required this.about,
-    required this.isDarkMode,
+class UserModel {
+  final int id;
+  final String userId;
+  final String firstName;
+  final String lastName;
+  final String birthday;
+  final String address;
+  final int postCode;
+  final CityModel city;
+  final int phone;
+  final int gender;
+  final List<JobCategoryModel> jobCategories;
+  final String description;
+
+  const UserModel({
+    required this.id,
+    required this.userId,
+    required this.firstName,
+    required this.lastName,
+    required this.birthday,
+    required this.address,
+    required this.postCode,
+    required this.city,
+    required this.phone,
+    required this.gender,
+    required this.jobCategories,
+    required this.description,
   });
-}
 
-User myUser = User(
-  imagePath:
-      'https://www.creativefabrica.com/wp-content/uploads/2020/11/07/DIY-logo-stamp-design-template-concept-Graphics-6510097-1-1-580x386.png',
-  name: 'Mymycuisine',
-  email: 'contact.mymycuisine@gmail.com',
-  about:
-      'Certified Personal Trainer and Nutritionist with years of experience in creating effective diets and training plans focused on achieving individual customers goals in a smooth way.',
-  isDarkMode: false,
-);
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'] != null ? json['id'] : '',
+      userId: json['userId'] != null ? json['userId'] : '',
+      firstName: json['firstName'] != null ? json['firstName'] : '',
+      lastName: json['lastName'] != null ? json['lastName'] : '',
+      birthday: json['birthday'] != null ? json['birthday'] : '',
+      address: json['address'] != null ? json['address'] : '',
+      postCode: json['postCode'] != null ? json['postCode'] : '',
+      city: CityModel.fromJson(json["city"]),
+      phone: json['phone'] != null ? json['phone'] : '',
+      gender: json['gender'] != null ? json['gender'] : '',
+      jobCategories: json['jobCategories']
+          .map<JobCategoryModel>((data) => JobCategoryModel.fromJson(data))
+          .toList(),
+      description: json['description'] != null ? json['description'] : '',
+    );
+  }
+}

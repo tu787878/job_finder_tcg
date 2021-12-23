@@ -5,6 +5,8 @@ import 'package:job/views/findJob/jobLoadingSkeleton.dart';
 import 'package:job/views/findStaff/people.dart';
 import 'package:line_icons/line_icons.dart';
 
+import 'manager/job_manager.dart';
+
 class Tabs extends StatefulWidget {
   @override
   _TabsState createState() => _TabsState();
@@ -19,7 +21,7 @@ class _TabsState extends State<Tabs> {
     });
   }
 
-  List<Widget> _tabs = [Home(), FindPeople(), Home(), Home()];
+  List<Widget> _tabs = [Home(), FindPeople(), JobManager(), Home()];
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class _TabsState extends State<Tabs> {
                 ),
                 GButton(
                   icon: LineIcons.podcast,
-                  text: 'Lưu',
+                  text: 'Quản lý',
                 ),
                 GButton(
                   icon: LineIcons.inbox,
