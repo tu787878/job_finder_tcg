@@ -40,7 +40,7 @@ class NewJob extends StatelessWidget {
                           ),
                         );
                       },
-                      child: CompanyCard2(job: job.job));
+                      child: CompanyCard2(jobResponse: job));
                 },
               );
             } else if (snapshot.hasError) {

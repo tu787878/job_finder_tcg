@@ -92,7 +92,7 @@ class _ManagerState extends State<JobManager> {
                                 ),
                               );
                             },
-                            child: AppliedJobCard(job: job.job),
+                            child: AppliedJobCard(appliedJobResponse: job),
                           );
                         },
                       ),

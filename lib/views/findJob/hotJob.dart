@@ -45,8 +45,8 @@ class HotJob extends StatelessWidget {
                       );
                     },
                     child: index == 0
-                        ? CompanyCard(job: job.job)
-                        : CompanyCard2(job: job.job),
+                        ? CompanyCard(jobResponse: job)
+                        : CompanyCard2(jobResponse: job),
                   );
                 },
               ),

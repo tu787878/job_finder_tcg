@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
+import 'package:job/models/JobResponse.dart';
 import 'package:job/models/business_model.dart';
 import 'package:job/models/company.dart';
 import 'package:job/models/job_model.dart';
@@ -7,10 +8,11 @@ import 'package:job/services/api/job_api.dart';
 import 'package:job/views/findJob/job_detail.dart';
 
 class CompanyCard extends StatelessWidget {
-  final JobModel? job;
-  CompanyCard({required this.job});
+  final JobResponse jobResponse;
+  CompanyCard({required this.jobResponse});
   @override
   Widget build(BuildContext context) {
+    JobModel job = jobResponse.job;
     return Container(
       width: 280.0,
       height: 200.0,
@@ -32,16 +34,16 @@ class CompanyCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                    image: NetworkImage(job!.business.businessLogoPath),
+                    image: NetworkImage(job.business.businessLogoPath),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               Spacer(),
               Text(
-                job!.salaryFrom.toString() +
+                job.salaryFrom.toString() +
                     "€/h - " +
-                    job!.salaryTo.toString() +
+                    job.salaryTo.toString() +
                     "€/h",
                 style: kTitleStyle.copyWith(color: Colors.white),
               ),
@@ -49,7 +51,7 @@ class CompanyCard extends StatelessWidget {
           ),
           SizedBox(height: 15.0),
           Text(
-            job!.jobName,
+            job.jobName,
             style: kTitleStyle.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -60,7 +62,7 @@ class CompanyCard extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: job!.business.businessName,
+                  text: job.business.businessName,
                   style: kSubtitleStyle.copyWith(
                     color: Colors.white,
                   ),
@@ -72,7 +74,7 @@ class CompanyCard extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: job!.business.businessCategory.name,
+                  text: job.business.businessCategory.name,
                   style: kSubtitleStyle.copyWith(
                     color: Colors.white,
                   ),
@@ -87,7 +89,7 @@ class CompanyCard extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: job!.jobTags
+                  children: job.jobTags
                       .map(
                         (e) => Container(
                           alignment: Alignment.center,
@@ -110,7 +112,7 @@ class CompanyCard extends StatelessWidget {
                       .toList(),
                 ),
                 Text(
-                  "3 đăng kí",
+                  jobResponse.subscribers.toString() + " đăng kí",
                   style: TextStyle(
                     color: Colors.white,
                   ),
