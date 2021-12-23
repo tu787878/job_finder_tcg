@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:job/models/JobResponse.dart';
 import 'package:job/models/business_model.dart';
 import 'package:job/models/city_model.dart';
 import 'package:job/models/job_category_model.dart';
@@ -15,7 +16,7 @@ class JobApi {
   late final Box box = Hive.box('authenticationBox');
   late final String host = UrlModel.toUrl();
 
-  Future<List<JobModel>> getHotJobs(QuerySearch query) async {
+  Future<List<JobResponse>> getHotJobs(QuerySearch query) async {
     var token = box.get('access_token');
     if (token != null) {
       String url = host + "/api/jobs" + query.toQuery();
@@ -28,9 +29,9 @@ class JobApi {
       );
 
       if (response.statusCode == 200 || response.statusCode == 400) {
-        List<JobModel> jobModels =
+        List<JobResponse> jobModels =
             json.decode(response.body)['data']['jobs'].map<JobModel>((data) {
-          return new JobModel.fromJson(data);
+          return new JobResponse.fromJson(data);
         }).toList();
         return jobModels;
       } else {
@@ -41,7 +42,7 @@ class JobApi {
     }
   }
 
-  Future<List<JobModel>> getNewJobs(QuerySearch query) async {
+  Future<List<JobResponse>> getNewJobs(QuerySearch query) async {
     var token = box.get('access_token');
     if (token != null) {
       String url = host + "/api/jobs" + query.toQuery();
@@ -54,9 +55,10 @@ class JobApi {
       );
 
       if (response.statusCode == 200 || response.statusCode == 400) {
-        List<JobModel> jobModels =
+        List<JobResponse> jobModels =
             json.decode(response.body)['data']['jobs'].map<JobModel>((data) {
-          return new JobModel.fromJson(data);
+          print(data);
+          return new JobResponse.fromJson(data);
         }).toList();
         return jobModels;
       } else {

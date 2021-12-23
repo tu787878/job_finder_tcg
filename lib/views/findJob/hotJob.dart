@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
+import 'package:job/models/JobResponse.dart';
 import 'package:job/models/job_model.dart';
 import 'package:job/models/query_search.dart';
 import 'package:job/services/api/job_api.dart';
@@ -19,7 +20,7 @@ class HotJob extends StatelessWidget {
       SizedBox(height: 15.0),
       FutureBuilder(
         future: JobApi().getHotJobs(queryNewJobsBasic),
-        builder: (context, AsyncSnapshot<List<JobModel>> snapshot) {
+        builder: (context, AsyncSnapshot<List<JobResponse>> snapshot) {
           if (snapshot.hasData) {
             var tuples = snapshot.data;
             return Container(
@@ -38,14 +39,14 @@ class HotJob extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => JobDetail(
-                            job: job,
+                            job: job.job,
                           ),
                         ),
                       );
                     },
                     child: index == 0
-                        ? CompanyCard(job: job)
-                        : CompanyCard2(job: job),
+                        ? CompanyCard(job: job.job)
+                        : CompanyCard2(job: job.job),
                   );
                 },
               ),

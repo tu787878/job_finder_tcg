@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:job/constants.dart';
+import 'package:job/models/JobResponse.dart';
 import 'package:job/models/job_model.dart';
 import 'package:job/models/query_search.dart';
 import 'package:job/models/tupel.dart';
@@ -77,7 +78,7 @@ class FindPeople extends StatelessWidget {
               SizedBox(height: 15.0),
               FutureBuilder(
                 future: JobApi().getHotJobs(queryNewJobsBasic),
-                builder: (context, AsyncSnapshot<List<JobModel>> snapshot) {
+                builder: (context, AsyncSnapshot<List<JobResponse>> snapshot) {
                   if (snapshot.hasData) {
                     var tuples = snapshot.data;
                     return Container(
