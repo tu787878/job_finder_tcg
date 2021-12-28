@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:job/constants.dart';
-import 'package:job/views/findJob/filter_item.dart';
+import 'package:job/models/job_filter_model.dart';
+import 'package:job/views/findJob/filterForm.dart';
 
-class FindJob extends StatelessWidget {
+class FindJob extends StatefulWidget {
+  const FindJob({Key? key, this.filter}) : super(key: key);
+  final JobFilterModel? filter;
+
+  @override
+  _FindJobState createState() => _FindJobState();
+}
+
+class _FindJobState extends State<FindJob> {
   @override
   Widget build(BuildContext context) {
     return (Column(
@@ -57,46 +66,32 @@ class FindJob extends StatelessWidget {
                       color: Colors.white,
                       size: 20.0,
                     ),
-                    onPressed: () => _showMyDialog(context),
+                    onPressed: () => {
+                      showModalBottomSheet<void>(
+                        context: context,
+                        enableDrag: false,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25.0),
+                              topRight: Radius.circular(25.0)),
+                        ),
+                        builder: (BuildContext context) {
+                          return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(25.0),
+                                    topRight: Radius.circular(25.0)),
+                                color: Colors.white,
+                              ),
+                              child: FilterForm(filter: widget.filter));
+                        },
+                      )
+                    },
                   ))
             ],
           ),
         ),
       ],
     ));
-  }
-
-  Future<void> _showMyDialog(context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Filter by'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[FilterItem(), FilterItem(), FilterItem()],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Save'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text(
-                'Cancel',
-                style: TextStyle(color: Colors.red),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 }

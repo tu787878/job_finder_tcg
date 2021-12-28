@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
+import 'package:job/models/job_filter_model.dart';
 import 'package:job/views/findJob/findJob.dart';
 import 'package:job/views/findJob/hotJob.dart';
 import 'package:job/views/findJob/newJob.dart';
@@ -7,15 +8,12 @@ import 'package:job/views/upload_job.dart';
 import 'package:job/widgets/appbar.dart';
 
 class Home extends StatefulWidget {
-  final searchParams = {};
-
-  // Home({this.searchParams});
-
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  final JobFilterModel filter = JobFilterModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,11 +42,11 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 25.0),
-              FindJob(),
+              FindJob(filter: filter),
               SizedBox(height: 25.0),
               HotJob(),
               SizedBox(height: 25.0),
-              NewJob()
+              NewJob(filter: filter)
             ],
           ),
         ),
