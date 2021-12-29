@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -132,8 +133,10 @@ class _EditprofileState extends State<Editprofile> {
                         businessLogoPath: business.businessLogoPath,
                         businessCategory: newBusinessCategory,
                       );
+
                       print(newBusiness.businessId);
-                      BusinessApi().saveBusinessProfile(newBusiness, null);
+                      BusinessApi()
+                          .saveBusinessProfile(newBusiness, this._image);
                     },
                     child: const Text('Lưu'),
                   ),

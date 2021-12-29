@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
-import 'package:job/models/JobResponse.dart';
-import 'package:job/models/job_model.dart';
 import 'package:job/models/query_search.dart';
 import 'package:job/services/api/job_api.dart';
+import 'package:job/views/findJob/jobLoadingSkeleton.dart';
 import 'package:job/views/findJob/job_detail.dart';
 import 'package:job/widgets/company_card2.dart';
 
-class NewJob extends StatelessWidget {
+class NewJob extends StatefulWidget {
+  const NewJob({Key? key, this.filter}) : super(key: key);
+  final filter;
+
+  @override
+  _NewJobState createState() => _NewJobState();
+}
+
+class _NewJobState extends State<NewJob> {
+  var newJobData = [];
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    var result = await JobApi().getNewJobs(queryNewJobsBasic);
+    setState(() => {this.newJobData = result});
+  }
+
   @override
   Widget build(BuildContext context) {
     return (Column(
@@ -17,18 +33,14 @@ class NewJob extends StatelessWidget {
           style: kTitleStyle,
         ),
         SizedBox(height: 15.0),
-        FutureBuilder(
-          future: JobApi().getNewJobs(queryNewJobsBasic),
-          builder: (context, AsyncSnapshot<List<JobResponse>> snapshot) {
-            if (snapshot.hasData) {
-              var tuples = snapshot.data;
-              return ListView.builder(
-                itemCount: tuples!.length,
+        newJobData.length != 0
+            ? ListView.builder(
+                itemCount: newJobData.length,
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  var job = tuples[index];
+                  var job = newJobData[index];
                   return InkWell(
                       onTap: () {
                         Navigator.push(
@@ -42,16 +54,11 @@ class NewJob extends StatelessWidget {
                       },
                       child: CompanyCard2(jobResponse: job));
                 },
-              );
-            } else if (snapshot.hasError) {
-              return Text(
-                'There was an error :(',
-              );
-            } else {
-              return CircularProgressIndicator();
-            }
-          },
-        ),
+              )
+            : JobLoadingSkeleton(
+                // width: MediaQuery.of(context).size.width * 0.9,
+                direction: DirectionType.column,
+              )
       ],
     ));
   }

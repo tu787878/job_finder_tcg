@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
-import 'package:job/models/JobResponse.dart';
-import 'package:job/models/job_model.dart';
 import 'package:job/models/query_search.dart';
 import 'package:job/services/api/job_api.dart';
 import 'package:job/views/findJob/jobLoadingSkeleton.dart';
@@ -9,7 +7,22 @@ import 'package:job/views/findJob/job_detail.dart';
 import 'package:job/widgets/company_card.dart';
 import 'package:job/widgets/company_card2.dart';
 
-class HotJob extends StatelessWidget {
+class HotJob extends StatefulWidget {
+  HotJob({Key? key}) : super(key: key);
+
+  @override
+  _HotJobState createState() => _HotJobState();
+}
+
+class _HotJobState extends State<HotJob> {
+  var relateJobData = [];
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    var result = await JobApi().getHotJobs(queryNewJobsBasic);
+    setState(() => {this.relateJobData = result});
+  }
+
   @override
   Widget build(BuildContext context) {
     return (Column(children: [
@@ -18,48 +31,68 @@ class HotJob extends StatelessWidget {
         style: kTitleStyle,
       ),
       SizedBox(height: 15.0),
-      FutureBuilder(
-        future: JobApi().getHotJobs(queryNewJobsBasic),
-        builder: (context, AsyncSnapshot<List<JobResponse>> snapshot) {
-          if (snapshot.hasData) {
-            var tuples = snapshot.data;
-            return Container(
-              width: double.infinity,
-              height: 200.0,
-              child: ListView.builder(
-                itemCount: tuples!.length,
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  var job = tuples[index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => JobDetail(
-                            job: job.job,
-                          ),
-                        ),
+      Container(
+        width: double.infinity,
+        height: 200.0,
+        child:
+            // AnimatedCrossFade(
+            //   crossFadeState: relateJobData.length != 0
+            //       ? CrossFadeState.showFirst
+            //       : CrossFadeState.showSecond,
+            //   duration: const Duration(milliseconds: 1000),
+            //   firstChild: ListView.builder(
+            //     itemCount: relateJobData.length,
+            //     scrollDirection: Axis.horizontal,
+            //     shrinkWrap: true,
+            //     physics: BouncingScrollPhysics(),
+            //     itemBuilder: (context, index) {
+            //       var job = relateJobData[index];
+            //       return InkWell(
+            //         onTap: () {
+            //           Navigator.push(
+            //             context,
+            //             MaterialPageRoute(
+            //               builder: (context) => JobDetail(
+            //                 job: job.job,
+            //               ),
+            //             ),
+            //           );
+            //         },
+            //         child: index == 0
+            //             ? CompanyCard(job: job.job)
+            //             : CompanyCard2(job: job.job),
+            //       );
+            //     },
+            //   ),
+            //   secondChild: JobLoadingSkeleton(),
+            // )
+            relateJobData.length != 0
+                ? ListView.builder(
+                    itemCount: relateJobData.length,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      var job = relateJobData[index];
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => JobDetail(
+                                job: job.job,
+                              ),
+                            ),
+                          );
+                        },
+                        child: index == 0
+                            ? CompanyCard(jobResponse: job)
+                            : CompanyCard2(jobResponse: job),
                       );
                     },
-                    child: index == 0
-                        ? CompanyCard(jobResponse: job)
-                        : CompanyCard2(jobResponse: job),
-                  );
-                },
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return Text(
-              'There was an error :(',
-            );
-          } else {
-            return JobLoadingSkeleton();
-          }
-        },
-      ),
+                  )
+                : JobLoadingSkeleton(),
+      )
     ]));
   }
 }

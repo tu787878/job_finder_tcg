@@ -22,7 +22,7 @@ class BusinessModel {
       businessId: json['businessId'] != null ? json['businessId'] : '',
       businessName: json['businessName'] != null ? json['businessName'] : '',
       businessAddress:
-          json['businessAdress'] != null ? json['businessAdress'] : '',
+          json['businessAddress'] != null ? json['businessAddress'] : '',
       businessDescription: json['businessDescription'] != null
           ? json['businessDescription']
           : '',
