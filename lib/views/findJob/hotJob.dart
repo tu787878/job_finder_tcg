@@ -25,7 +25,7 @@ class _HotJobState extends State<HotJob> {
 
   @override
   Widget build(BuildContext context) {
-    return (Column(children: [
+    return (Wrap(children: [
       Text(
         "Dành cho bạn",
         style: kTitleStyle,
@@ -34,64 +34,32 @@ class _HotJobState extends State<HotJob> {
       Container(
         width: double.infinity,
         height: 200.0,
-        child:
-            // AnimatedCrossFade(
-            //   crossFadeState: relateJobData.length != 0
-            //       ? CrossFadeState.showFirst
-            //       : CrossFadeState.showSecond,
-            //   duration: const Duration(milliseconds: 1000),
-            //   firstChild: ListView.builder(
-            //     itemCount: relateJobData.length,
-            //     scrollDirection: Axis.horizontal,
-            //     shrinkWrap: true,
-            //     physics: BouncingScrollPhysics(),
-            //     itemBuilder: (context, index) {
-            //       var job = relateJobData[index];
-            //       return InkWell(
-            //         onTap: () {
-            //           Navigator.push(
-            //             context,
-            //             MaterialPageRoute(
-            //               builder: (context) => JobDetail(
-            //                 job: job.job,
-            //               ),
-            //             ),
-            //           );
-            //         },
-            //         child: index == 0
-            //             ? CompanyCard(job: job.job)
-            //             : CompanyCard2(job: job.job),
-            //       );
-            //     },
-            //   ),
-            //   secondChild: JobLoadingSkeleton(),
-            // )
-            relateJobData.length != 0
-                ? ListView.builder(
-                    itemCount: relateJobData.length,
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      var job = relateJobData[index];
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => JobDetail(
-                                job: job.job,
-                              ),
-                            ),
-                          );
-                        },
-                        child: index == 0
-                            ? CompanyCard(jobResponse: job)
-                            : CompanyCard2(jobResponse: job),
+        child: relateJobData.length != 0
+            ? ListView.builder(
+                itemCount: relateJobData.length,
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  var job = relateJobData[index];
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => JobDetail(
+                            job: job.job,
+                          ),
+                        ),
                       );
                     },
-                  )
-                : JobLoadingSkeleton(),
+                    child: index == 0
+                        ? CompanyCard(jobResponse: job)
+                        : CompanyCard2(jobResponse: job),
+                  );
+                },
+              )
+            : JobLoadingSkeleton(),
       )
     ]));
   }

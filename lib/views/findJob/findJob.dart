@@ -69,21 +69,25 @@ class _FindJobState extends State<FindJob> {
                     onPressed: () => {
                       showModalBottomSheet<void>(
                         context: context,
-                        enableDrag: false,
+                        isScrollControlled: true,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25.0),
                               topRight: Radius.circular(25.0)),
                         ),
                         builder: (BuildContext context) {
-                          return Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(25.0),
-                                    topRight: Radius.circular(25.0)),
-                                color: Colors.white,
-                              ),
-                              child: FilterForm(filter: widget.filter));
+                          return Wrap(
+                            children: [
+                              Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(25.0),
+                                        topRight: Radius.circular(25.0)),
+                                    color: Colors.white,
+                                  ),
+                                  child: FilterForm(filter: widget.filter))
+                            ],
+                          );
                         },
                       )
                     },

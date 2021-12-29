@@ -26,7 +26,7 @@ class _NewJobState extends State<NewJob> {
 
   @override
   Widget build(BuildContext context) {
-    return (Column(
+    return (Wrap(
       children: [
         Text(
           "Mới",
