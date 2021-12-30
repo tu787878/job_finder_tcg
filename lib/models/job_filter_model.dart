@@ -1,30 +1,30 @@
 class JobFilterModel {
-  late int _count;
+  late double _count;
   late String _page;
-  late int _area;
+  late double _area;
   late String _cityId;
   late double _jobSalaryFrom;
   late double _jobSalaryTo;
   late String _jobCategoryId;
-  late int _postCode;
+  late double _postCode;
   late String _search;
   late String _tags;
 
   JobFilterModel() {
-    this._count = 0;
+    this._count = 0.0;
     this._page = "";
-    this._area = 0;
+    this._area = 0.0;
     this._cityId = "";
-    this._jobSalaryFrom = 0;
-    this._jobSalaryTo = 0;
+    this._jobSalaryFrom = 0.0;
+    this._jobSalaryTo = 0.0;
     this._jobCategoryId = "";
-    this._postCode = 0;
+    this._postCode = 0.0;
     this._search = "";
-    this._tags = "";
+    this._tags = "fulltime";
   }
 
   getCount() => this._count;
-  setCount(int newCount) {
+  setCount(double newCount) {
     this._count = newCount;
   }
 
@@ -34,7 +34,7 @@ class JobFilterModel {
   }
 
   getArea() => this._area;
-  setArea(int newArea) {
+  setArea(double newArea) {
     this._area = newArea;
   }
 
@@ -59,7 +59,7 @@ class JobFilterModel {
   }
 
   getPostCode() => this._postCode;
-  setPostCode(int newPostCode) {
+  setPostCode(double newPostCode) {
     this._postCode = newPostCode;
   }
 
