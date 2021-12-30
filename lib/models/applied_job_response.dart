@@ -7,6 +7,7 @@ class AppliedJobResponse {
   final String businessId;
   final JobModel job;
   final String status;
+  final String dateTime;
 
   AppliedJobResponse({
     required this.id,
@@ -14,15 +15,16 @@ class AppliedJobResponse {
     required this.businessId,
     required this.job,
     required this.status,
+    required this.dateTime,
   });
 
   factory AppliedJobResponse.fromJson(Map<String, dynamic> json) {
     return AppliedJobResponse(
-      id: json['id'] != null ? json['id'] : '',
-      user: UserModel.fromJson(json['userId']),
-      businessId: json['businessId'] != null ? json['businessId'] : '',
-      job: JobModel.fromJson(json['job']),
-      status: json['status'] != null ? json['status'] : '',
-    );
+        id: json['id'] != null ? json['id'] : '',
+        user: UserModel.fromJson(json['userId']),
+        businessId: json['businessId'] != null ? json['businessId'] : '',
+        job: JobModel.fromJson(json['job']),
+        status: json['status'] != null ? json['status'] : '',
+        dateTime: json['dateTime'] != null ? json['dateTime'] : '');
   }
 }
