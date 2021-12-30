@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
+import 'package:job/models/job_filter_model.dart';
 import 'package:job/models/query_search.dart';
 import 'package:job/services/api/job_api.dart';
 import 'package:job/views/findJob/jobLoadingSkeleton.dart';
 import 'package:job/views/findJob/job_detail.dart';
 import 'package:job/widgets/company_card.dart';
 import 'package:job/widgets/company_card2.dart';
+import 'package:provider/provider.dart';
 
 class HotJob extends StatefulWidget {
   HotJob({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class HotJob extends StatefulWidget {
 
 class _HotJobState extends State<HotJob> {
   var relateJobData = [];
+
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
@@ -25,9 +28,10 @@ class _HotJobState extends State<HotJob> {
 
   @override
   Widget build(BuildContext context) {
+    JobFilterModel filter = Provider.of<JobFilterModel>(context);
     return (Wrap(children: [
       Text(
-        "Dành cho bạn",
+        "Dành cho bạn ${filter.getJobFrom()}",
         style: kTitleStyle,
       ),
       SizedBox(height: 15.0),

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:job/models/JobResponse.dart';
 import 'package:job/models/business_model.dart';
 import 'package:job/models/company.dart';
 import 'package:job/models/job_model.dart';
+import 'package:job/models/query_search.dart';
 import 'package:job/services/api/business_api.dart';
 import 'package:job/views/findJob/job_detail.dart';
 import 'package:job/widgets/appbar_widget.dart';
@@ -112,8 +114,8 @@ class _ProfilePageState extends State<ProfilePage> {
       );
 
   Widget buildJob(BusinessModel business) => FutureBuilder(
-      future: BusinessApi().getJobs(),
-      builder: (context, AsyncSnapshot<List<JobModel>> snapshot) {
+      future: BusinessApi().getJobs(queryNewJobsBasic),
+      builder: (context, AsyncSnapshot<List<JobResponse>> snapshot) {
         if (snapshot.hasData) {
           var jobs = snapshot.data;
           return Container(
@@ -144,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         );
                       },
-                      child: JobMiniCard(job: job, business: business),
+                      child: JobMiniCard(job: job.job, business: business),
                     );
                   },
                 ),

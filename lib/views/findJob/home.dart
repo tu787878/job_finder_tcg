@@ -6,6 +6,7 @@ import 'package:job/views/findJob/hotJob.dart';
 import 'package:job/views/findJob/newJob.dart';
 import 'package:job/views/upload_job.dart';
 import 'package:job/widgets/appbar.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -16,38 +17,45 @@ class _HomeState extends State<Home> {
   final JobFilterModel filter = JobFilterModel();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: null,
-        label: Text("Đăng Job"),
-        icon: Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => UploadJob(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: JobFilterModel(),
+        ),
+      ],
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton.extended(
+          heroTag: null,
+          label: Text("Đăng Job"),
+          icon: Icon(Icons.add),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => UploadJob(),
+              ),
+            );
+          },
+          backgroundColor: Colors.black,
+        ),
+        backgroundColor: kSilver,
+        appBar: AppBarCustom(),
+        body: Container(
+          margin: EdgeInsets.only(left: 18.0),
+          child: SingleChildScrollView(
+            physics:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 25.0),
+                FindJob(),
+                SizedBox(height: 25.0),
+                HotJob(),
+                SizedBox(height: 25.0),
+                NewJob(filter: filter)
+              ],
             ),
-          );
-        },
-        backgroundColor: Colors.black,
-      ),
-      backgroundColor: kSilver,
-      appBar: AppBarCustom(),
-      body: Container(
-        margin: EdgeInsets.only(left: 18.0),
-        child: SingleChildScrollView(
-          physics:
-              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 25.0),
-              FindJob(filter: filter),
-              SizedBox(height: 25.0),
-              HotJob(),
-              SizedBox(height: 25.0),
-              NewJob(filter: filter)
-            ],
           ),
         ),
       ),

@@ -3,10 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:job/constants.dart';
 import 'package:job/models/job_filter_model.dart';
 import 'package:job/views/findJob/filterForm.dart';
+import 'package:provider/provider.dart';
 
 class FindJob extends StatefulWidget {
-  const FindJob({Key? key, this.filter}) : super(key: key);
-  final JobFilterModel? filter;
+  const FindJob({Key? key}) : super(key: key);
 
   @override
   _FindJobState createState() => _FindJobState();
@@ -15,6 +15,8 @@ class FindJob extends StatefulWidget {
 class _FindJobState extends State<FindJob> {
   @override
   Widget build(BuildContext context) {
+    JobFilterModel filter = Provider.of<JobFilterModel>(context);
+
     return (Column(
       children: [
         Text(
@@ -85,7 +87,9 @@ class _FindJobState extends State<FindJob> {
                                         topRight: Radius.circular(25.0)),
                                     color: Colors.white,
                                   ),
-                                  child: FilterForm(filter: widget.filter))
+                                  child: FilterForm(
+                                    filter: filter,
+                                  ))
                             ],
                           );
                         },

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:job/models/JobResponse.dart';
 import 'package:job/models/applied_job_response.dart';
 import 'package:job/models/business_category_model.dart';
 import 'package:job/models/business_model.dart';
@@ -37,10 +38,10 @@ class BusinessApi {
     throw Exception('Fail to load data!');
   }
 
-  Future<List<JobModel>> getJobs() async {
+  Future<List<JobResponse>> getJobs(QuerySearch querySearch) async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/business/jobs";
+      String url = host + "/api/business/jobs" + querySearch.toQuery();
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
@@ -51,12 +52,11 @@ class BusinessApi {
       // print(json.decode(response.body)['data']['jobs']);
       // print(json.decode(response.body)['data']['business']);
       if (response.statusCode == 200 || response.statusCode == 400) {
-        List<JobModel> jobModels = json
+        List<JobResponse> jobModels = json
             .decode(response.body)['data']['jobs']
-            .map<JobModel>((data) => new JobModel.fromJson(data))
+            .map<JobResponse>((data) => new JobResponse.fromJson(data))
             .toList();
-        print("jobModels[0].businessId");
-        print(jobModels[0].business);
+
         return jobModels;
       } else {
         throw Exception('Fail to load data!');
