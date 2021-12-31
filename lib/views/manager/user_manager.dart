@@ -7,12 +7,12 @@ import 'package:job/views/findJob/jobLoadingSkeleton.dart';
 import 'package:job/views/findJob/job_detail.dart';
 import 'package:job/views/manager/widget/business_job_card.dart';
 
-class BusinessManager extends StatefulWidget {
+class UserManager extends StatefulWidget {
   @override
   _BusinessManagerState createState() => _BusinessManagerState();
 }
 
-class _BusinessManagerState extends State<BusinessManager> {
+class _BusinessManagerState extends State<UserManager> {
   int? groupValue = 0;
   @override
   Widget build(BuildContext context) {

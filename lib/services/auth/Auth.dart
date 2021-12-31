@@ -41,6 +41,11 @@ class AuthService {
     return isBusiness;
   }
 
+  bool isThisBusiness(String businessId) {
+    String thisBusinessid = box.get('business_id');
+    return thisBusinessid == businessId;
+  }
+
   Future<bool> create() async {
     var token = box.get('access_token');
     if (token != null) {

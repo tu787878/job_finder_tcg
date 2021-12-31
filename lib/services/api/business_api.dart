@@ -183,7 +183,7 @@ class BusinessApi {
     throw Exception('Fail to load data!');
   }
 
-  Future<List<AppliedJobResponse>> getAppliedJob(QuerySearch query) async {
+  Future<List<AppliedJobResponse>> getAppliedJob(Jobquery query) async {
     var token = box.get('access_token');
     if (token != null) {
       String url = host + "/api/user/appliedJob";

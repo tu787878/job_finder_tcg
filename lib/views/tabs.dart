@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:job/views/findJob/home.dart';
 import 'package:job/views/findStaff/people.dart';
-import 'package:job/views/manager/business_manager.dart';
+import 'package:job/views/manager/tab_manager.dart';
 import 'package:line_icons/line_icons.dart';
-
-import 'manager/job_manager.dart';
 
 class Tabs extends StatefulWidget {
   @override
@@ -21,7 +19,7 @@ class _TabsState extends State<Tabs> {
     });
   }
 
-  List<Widget> _tabs = [Home(), FindPeople(), JobManager(), BusinessManager()];
+  List<Widget> _tabs = [Home(), FindPeople(), TabManager(), TabManager()];
 
   @override
   Widget build(BuildContext context) {

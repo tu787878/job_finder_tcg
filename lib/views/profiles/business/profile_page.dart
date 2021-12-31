@@ -27,7 +27,7 @@ class _ProfilePageState extends State<BusinessProfilePage> {
         if (snapshot.hasData) {
           var business = snapshot.data;
           return Scaffold(
-            appBar: buildProfileAppBar(context),
+            appBar: buildProfileAppBar(context, business!.businessId),
             body: ListView(
               physics: BouncingScrollPhysics(),
               children: [
