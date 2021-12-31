@@ -4,12 +4,8 @@ import 'package:job/constants.dart';
 import 'package:job/models/JobResponse.dart';
 import 'package:job/models/job_model.dart';
 import 'package:job/models/query_search.dart';
-import 'package:job/models/tupel.dart';
 import 'package:job/services/api/job_api.dart';
-import 'package:job/views/findJob/job_detail.dart';
 import 'package:job/widgets/appbar.dart';
-import 'package:job/widgets/company_card.dart';
-import 'package:job/widgets/company_card2.dart';
 
 class FindPeople extends StatelessWidget {
   @override

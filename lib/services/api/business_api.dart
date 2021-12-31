@@ -40,9 +40,12 @@ class BusinessApi {
 
   Future<List<JobResponse>> getJobs(Jobquery querySearch) async {
     var token = box.get('access_token');
+    var businessid = await box.get('business_id');
     if (token != null) {
-      String url = host + "/api/business/jobs" + querySearch.parseToParam();
-
+      String url = host +
+          "/api/business/${businessid}/jobs" +
+          querySearch.parseToParam();
+      print(url);
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
@@ -50,7 +53,7 @@ class BusinessApi {
           'Authorization': 'Bearer ' + token.toString(),
         },
       );
-      // print(json.decode(response.body)['data']['jobs']);
+      //print(json.decode(response.body)['data']['jobs']);
       // print(json.decode(response.body)['data']['business']);
       if (response.statusCode == 200 || response.statusCode == 400) {
         List<JobResponse> jobModels = json

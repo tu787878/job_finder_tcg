@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:job/views/findJob/home.dart';
-import 'package:job/views/findJob/jobLoadingSkeleton.dart';
 import 'package:job/views/findStaff/people.dart';
 import 'package:job/views/manager/business_manager.dart';
 import 'package:line_icons/line_icons.dart';

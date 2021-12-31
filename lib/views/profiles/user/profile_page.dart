@@ -13,12 +13,12 @@ import 'package:job/widgets/numbers_widget.dart';
 import 'package:job/widgets/profile_widget.dart';
 import 'package:job/widgets/recent_job_card.dart';
 
-class ProfilePage extends StatefulWidget {
+class UserProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -101,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'About',
+              'About User',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
@@ -141,12 +141,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => JobDetail(
-                              job: null,
+                              job: job.job,
                             ),
                           ),
                         );
                       },
-                      child: JobMiniCard(job: job.job, business: business),
+                      child: JobMiniCard(job: job.job),
                     );
                   },
                 ),

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:job/views/staffProfile/edit_profile.dart';
+import 'package:job/views/profiles/staffProfile/edit_profile.dart';
 
 AppBar buildProfileAppBar(BuildContext context) {
   final icon = CupertinoIcons.moon_stars;
