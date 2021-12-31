@@ -16,10 +16,11 @@ class JobApi {
   late final Box box = Hive.box('authenticationBox');
   late final String host = UrlModel.toUrl();
 
-  Future<List<JobResponse>> getHotJobs(QuerySearch query) async {
+  Future<List<JobResponse>> getHotJobs(Jobquery query) async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/jobs/relate";
+      String url = host + "/api/jobs/relate" + query.parseToParam();
+      print(url);
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{

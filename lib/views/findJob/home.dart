@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
         return Scaffold(
           floatingActionButton: FloatingActionButton.extended(
             heroTag: null,
-            label: Text("Đăng Job${something.getJobTo()}"),
+            label: Text("Đăng Job"),
             icon: Icon(Icons.add),
             onPressed: () {
               Navigator.push(

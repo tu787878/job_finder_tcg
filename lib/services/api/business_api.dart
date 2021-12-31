@@ -42,6 +42,7 @@ class BusinessApi {
     var token = box.get('access_token');
     if (token != null) {
       String url = host + "/api/business/jobs" + querySearch.parseToParam();
+
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
