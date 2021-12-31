@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:job/models/query_search.dart';
 
 class JobFilterModel extends ChangeNotifier {
-  late double _count;
-  late String _page;
   late double _area;
   late String _cityId;
   late double _jobSalaryFrom;
@@ -13,8 +12,6 @@ class JobFilterModel extends ChangeNotifier {
   late String _tags;
 
   JobFilterModel() {
-    this._count = 0.0;
-    this._page = "";
     this._area = 0.0;
     this._cityId = "";
     this._jobSalaryFrom = 0.0;
@@ -25,16 +22,17 @@ class JobFilterModel extends ChangeNotifier {
     this._tags = "fulltime";
   }
 
-  getCount() => this._count;
-  setCount(double newCount) {
-    this._count = newCount;
-    notifyListeners();
-  }
-
-  getPage() => this._page;
-  setPage(String newPage) {
-    this._page = newPage;
-    notifyListeners();
+  Jobquery parseToJobQuery(int count, int page) {
+    return new Jobquery(
+      count: count,
+      page: page,
+      area: this._area.toString(),
+      cityId: this._cityId,
+      jobSalaryFrom: this._jobSalaryFrom,
+      jobSalaryTo: this._jobSalaryTo,
+      jobCategoryId: this._jobCategoryId,
+      search: this._search,
+    );
   }
 
   getArea() => this._area;

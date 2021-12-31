@@ -20,45 +20,48 @@ class _HomeState extends State<Home> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: JobFilterModel(),
+          value: filter,
         ),
       ],
-      child: Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-          heroTag: null,
-          label: Text("Đăng Job"),
-          icon: Icon(Icons.add),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => UploadJob(),
+      builder: (context, child) {
+        final something = context.watch<JobFilterModel>();
+        return Scaffold(
+          floatingActionButton: FloatingActionButton.extended(
+            heroTag: null,
+            label: Text("Đăng Job${something.getJobTo()}"),
+            icon: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UploadJob(),
+                ),
+              );
+            },
+            backgroundColor: Colors.black,
+          ),
+          backgroundColor: kSilver,
+          appBar: AppBarCustom(),
+          body: Container(
+            margin: EdgeInsets.only(left: 18.0),
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 25.0),
+                  FindJob(),
+                  SizedBox(height: 25.0),
+                  HotJob(),
+                  SizedBox(height: 25.0),
+                  NewJob(filter: filter)
+                ],
               ),
-            );
-          },
-          backgroundColor: Colors.black,
-        ),
-        backgroundColor: kSilver,
-        appBar: AppBarCustom(),
-        body: Container(
-          margin: EdgeInsets.only(left: 18.0),
-          child: SingleChildScrollView(
-            physics:
-                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 25.0),
-                FindJob(),
-                SizedBox(height: 25.0),
-                HotJob(),
-                SizedBox(height: 25.0),
-                NewJob(filter: filter)
-              ],
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

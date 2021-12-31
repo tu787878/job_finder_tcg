@@ -38,10 +38,10 @@ class BusinessApi {
     throw Exception('Fail to load data!');
   }
 
-  Future<List<JobResponse>> getJobs(QuerySearch querySearch) async {
+  Future<List<JobResponse>> getJobs(Jobquery querySearch) async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/business/jobs" + querySearch.toQuery();
+      String url = host + "/api/business/jobs" + querySearch.parseToParam();
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{

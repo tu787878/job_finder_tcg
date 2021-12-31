@@ -114,7 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
       );
 
   Widget buildJob(BusinessModel business) => FutureBuilder(
-      future: BusinessApi().getJobs(queryNewJobsBasic),
+      future: BusinessApi().getJobs(jobQueryBasic),
       builder: (context, AsyncSnapshot<List<JobResponse>> snapshot) {
         if (snapshot.hasData) {
           var jobs = snapshot.data;

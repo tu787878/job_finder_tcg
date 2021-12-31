@@ -18,20 +18,23 @@ class HotJob extends StatefulWidget {
 
 class _HotJobState extends State<HotJob> {
   var relateJobData = [];
+  JobFilterModel filter = new JobFilterModel();
 
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    var result = await JobApi().getHotJobs(queryNewJobsBasic);
+    print("object");
+    print(filter.getJobTo().toString());
+    var result = await JobApi().getHotJobs(filter.parseToJobQuery(10, 0));
     setState(() => {this.relateJobData = result});
   }
 
   @override
   Widget build(BuildContext context) {
-    JobFilterModel filter = Provider.of<JobFilterModel>(context);
+    filter = Provider.of<JobFilterModel>(context);
     return (Wrap(children: [
       Text(
-        "Dành cho bạn ${filter.getJobFrom()}",
+        "Dành cho bạn ${filter.getJobTo()}",
         style: kTitleStyle,
       ),
       SizedBox(height: 15.0),

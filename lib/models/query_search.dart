@@ -7,7 +7,7 @@ class QuerySearch {
     this.count,
   });
 
-  toQuery() {
+  String toQuery() {
     return "?page=" + this.page.toString() + "&count=" + this.count.toString();
   }
 }
@@ -18,11 +18,11 @@ class Jobquery extends QuerySearch {
   late final String? area;
   late final String? cityId;
   late final String? jobCategoryId;
-  late final int? jobSalaryFrom;
-  late final int? jobSalaryTo;
+  late final double? jobSalaryFrom;
+  late final double? jobSalaryTo;
   late final String? orderBy;
   late final String? orderType;
-  late final int? postCode;
+  late final double? postCode;
   late final String? search;
   late final String? tags;
 
@@ -40,4 +40,10 @@ class Jobquery extends QuerySearch {
     this.search,
     this.tags,
   }) : super(page: page, count: count);
+
+  String parseToParam() {
+    return "${toQuery()}&area=${area}&cityId=${cityId}&jobCategoryId=${jobCategoryId}&jobSalaryFrom=${jobSalaryFrom}&jobSalaryTo=${jobSalaryTo}&orderBy=${orderBy}&orderType=${orderType}&postCode=${postCode}&search=${search}&tags=${tags}";
+  }
 }
+
+Jobquery jobQueryBasic = new Jobquery(page: 0, count: 10);
