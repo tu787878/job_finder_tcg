@@ -32,7 +32,7 @@ class _ProfilePageState extends State<BusinessProfilePage> {
               physics: BouncingScrollPhysics(),
               children: [
                 ProfileWidget(
-                  imagePath: NetworkImage(business!.businessLogoPath),
+                  imagePath: NetworkImage(business.businessLogoPath),
                   onClicked: () async {},
                   own: false,
                 ),

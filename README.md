@@ -5,6 +5,12 @@ flutter run --no-sound-null-safety
 
 A new Flutter project.
 
+sudo lsof -t -i:8080
+sudo kill -9 224585
+
+mvn clean install
+cd target
+nohup java -jar JobFinderTCG-0.0.1-SNAPSHOT.jar &
 ## Getting Started
 
 This project is a starting point for a Flutter application.
