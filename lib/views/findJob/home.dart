@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
 import 'package:job/models/job_filter_model.dart';
+import 'package:job/services/auth/Auth.dart';
 import 'package:job/views/findJob/findJob.dart';
 import 'package:job/views/findJob/hotJob.dart';
 import 'package:job/views/findJob/newJob.dart';
@@ -26,20 +27,22 @@ class _HomeState extends State<Home> {
       builder: (context, child) {
         final something = context.watch<JobFilterModel>();
         return Scaffold(
-          floatingActionButton: FloatingActionButton.extended(
-            heroTag: null,
-            label: Text("Đăng Job${something.getJobTo()}"),
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UploadJob(),
-                ),
-              );
-            },
-            backgroundColor: Colors.black,
-          ),
+          floatingActionButton: AuthService().isBusiness()
+              ? FloatingActionButton.extended(
+                  heroTag: null,
+                  label: Text("Đăng Job"),
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UploadJob(),
+                      ),
+                    );
+                  },
+                  backgroundColor: Colors.black,
+                )
+              : null,
           backgroundColor: kSilver,
           appBar: AppBarCustom(),
           body: Container(

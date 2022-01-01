@@ -21,18 +21,29 @@ class AuthService {
         },
       );
       var result = json.decode(response.body);
-      print(result);
+
       if (result['code'] == 0) {
-        print(result['message']);
-        box.put("account_id", result['data']['accountId']);
+        print("ok");
+        print(result['data']['account']['businessId']);
+        box.put("account_id", result['data']['account']['accountId']);
         // box.put("username", result['data']['userName']);
-        box.put("business", result['data']['business']);
-        box.put("business_id", result['data']['businessId']);
-        box.put("user_id", result['data']['userId']);
+        box.put("business", result['data']['account']['business']);
+        box.put("business_id", result['data']['account']['businessId']);
+        box.put("user_id", result['data']['account']['userId']);
         return true;
       }
     }
     return false;
+  }
+
+  bool isBusiness() {
+    bool isBusiness = box.get('business');
+    return isBusiness;
+  }
+
+  bool isThisBusiness(String businessId) {
+    String thisBusinessid = box.get('business_id');
+    return thisBusinessid == businessId;
   }
 
   Future<bool> create() async {

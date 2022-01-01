@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:job/constants.dart';
-import 'package:job/models/business_model.dart';
-import 'package:job/models/company.dart';
 import 'package:job/models/job_model.dart';
 
 class JobMiniCard extends StatelessWidget {
   final JobModel? job;
-  final BusinessModel? business;
-  JobMiniCard({this.job, this.business});
+
+  JobMiniCard({this.job});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -24,7 +21,7 @@ class JobMiniCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
             image: DecorationImage(
-              image: NetworkImage(business!.businessLogoPath),
+              image: NetworkImage(job!.business.businessLogoPath),
               fit: BoxFit.cover,
             ),
           ),

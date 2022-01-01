@@ -34,7 +34,7 @@ class _HotJobState extends State<HotJob> {
     filter = Provider.of<JobFilterModel>(context);
     return (Wrap(children: [
       Text(
-        "Dành cho bạn ${filter.getJobTo()}",
+        "Dành cho bạn",
         style: kTitleStyle,
       ),
       SizedBox(height: 15.0),

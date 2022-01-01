@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:job/views/staffProfile/profile_page.dart';
+import 'package:job/services/auth/Auth.dart';
+import 'package:job/views/profiles/business/profile_page.dart';
+import 'package:job/views/profiles/user/profile_page.dart';
 
 import '../constants.dart';
 
@@ -36,7 +38,9 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProfilePage(),
+              builder: (context) => AuthService().isBusiness()
+                  ? BusinessProfilePage()
+                  : UserProfilePage(),
             ),
           ),
         ),
@@ -46,6 +50,5 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => new Size.fromHeight(AppBar().preferredSize.height);
 }
