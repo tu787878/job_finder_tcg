@@ -3,12 +3,23 @@ import 'package:job/constants.dart';
 import 'package:job/models/JobResponse.dart';
 import 'package:job/models/job_model.dart';
 
-class CompanyCard extends StatelessWidget {
+enum CardType { first, rest }
+
+class CompanyCard extends StatefulWidget {
   final JobResponse jobResponse;
-  CompanyCard({required this.jobResponse});
+  final cardType;
+  const CompanyCard({Key? key, required this.jobResponse, this.cardType})
+      : super(key: key);
+
+  @override
+  _CompanyCardState createState() => _CompanyCardState();
+}
+
+class _CompanyCardState extends State<CompanyCard> {
   @override
   Widget build(BuildContext context) {
-    JobModel job = jobResponse.job;
+    JobModel job = widget.jobResponse.job;
+    bool isFirstCard = widget.cardType == CardType.first;
     return Container(
       width: 300.0,
       height: 200.0,
@@ -16,7 +27,7 @@ class CompanyCard extends StatelessWidget {
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
-        color: kBlack,
+        color: isFirstCard ? kBlack : Colors.white,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,8 +41,7 @@ class CompanyCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                    image: NetworkImage(
-                        "https://scontent.fsgn5-4.fna.fbcdn.net/v/t1.15752-9/269770473_952158428733888_3849989958639703565_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=ae9488&_nc_ohc=-rsg0cb_QesAX8Rxtaj&_nc_ht=scontent.fsgn5-4.fna&oh=03_AVJRoQcAHS1nIiZVAwVcv_F7tZYyB77mbgv0BFnIZq6M5Q&oe=61F59E4D"),
+                    image: NetworkImage(job.business.businessLogoPath),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -45,7 +55,8 @@ class CompanyCard extends StatelessWidget {
                         "€/h - " +
                         job.salaryTo.toString() +
                         "€/h",
-                    style: kTitleStyle.copyWith(color: Colors.white),
+                    style: kTitleStyle.copyWith(
+                        color: isFirstCard ? Colors.white : Colors.black),
                   ),
                   SizedBox(
                     height: 10,
@@ -55,22 +66,28 @@ class CompanyCard extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: job.business.businessName,
-                          style: kSubtitleStyle.copyWith(
-                            color: Colors.white,
-                          ),
+                          style: isFirstCard
+                              ? kSubtitleStyle.copyWith(
+                                  color: Colors.white,
+                                )
+                              : kSubtitleStyle,
                         ),
-                        TextSpan(
-                          text: "  •  ",
-                          style: kSubtitleStyle.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                        TextSpan(
-                          text: job.business.businessCategory.name,
-                          style: kSubtitleStyle.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
+                        // TextSpan(
+                        //   text: "  •  ",
+                        //   style: isFirstCard
+                        //       ? kSubtitleStyle.copyWith(
+                        //           color: Colors.white,
+                        //         )
+                        //       : kSubtitleStyle,
+                        // ),
+                        // TextSpan(
+                        //   text: job.business.businessCategory.name,
+                        //   style: isFirstCard
+                        //       ? kSubtitleStyle.copyWith(
+                        //           color: Colors.white,
+                        //         )
+                        //       : kSubtitleStyle,
+                        // ),
                       ],
                     ),
                   ),
@@ -87,14 +104,14 @@ class CompanyCard extends StatelessWidget {
                   child: Text(
                 job.jobName,
                 style: kTitleStyle.copyWith(
-                  color: Colors.white,
+                  color: isFirstCard ? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               )),
               Text(
-                jobResponse.subscribers.toString() + " đăng kí",
+                widget.jobResponse.subscribers.toString() + " đăng kí",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: isFirstCard ? Colors.white : Colors.black,
                 ),
               ),
             ],
@@ -117,12 +134,13 @@ class CompanyCard extends StatelessWidget {
                               horizontal: 12.0, vertical: 5.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12.0),
-                            color: kBlackAccent,
+                            color:
+                                isFirstCard ? kBlackAccent : Colors.grey[200],
                           ),
                           child: Text(
                             e.name,
                             style: kSubtitleStyle.copyWith(
-                              color: Colors.white,
+                              color: isFirstCard ? Colors.white : Colors.black,
                               fontSize: 12.0,
                             ),
                           ),
@@ -130,16 +148,17 @@ class CompanyCard extends StatelessWidget {
                       )
                       .toList(),
                 ),
-                Container(
-                  height: 35,
-                  child: TextButton(
-                    child: Text("Đăng kí"),
-                    onPressed: () {
-                      // send api apply job
-                      print("job status: ${jobResponse.isApplied}");
-                    },
+                if (widget.jobResponse.isApplied)
+                  Container(
+                    height: 35,
+                    child: Text(
+                      "Đã đăng kí",
+                      style: kSubtitleStyle.copyWith(
+                        color: isFirstCard ? Colors.white : Colors.black,
+                        fontSize: 12.0,
+                      ),
+                    ),
                   ),
-                ),
               ],
             ),
           ),
@@ -148,3 +167,10 @@ class CompanyCard extends StatelessWidget {
     );
   }
 }
+
+// class CompanyCard extends StatefulWidget {
+  
+//   CompanyCard({required this.jobResponse});
+//   @override
+  
+// }

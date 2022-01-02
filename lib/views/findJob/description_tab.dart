@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
-import 'package:job/models/company.dart';
 import 'package:job/models/job_model.dart';
 
 class DescriptionTab extends StatelessWidget {

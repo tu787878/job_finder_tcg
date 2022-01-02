@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
 import 'package:job/models/job_filter_model.dart';
-import 'package:job/models/query_search.dart';
 import 'package:job/services/api/job_api.dart';
 import 'package:job/views/findJob/jobLoadingSkeleton.dart';
 import 'package:job/views/findJob/job_detail.dart';
 import 'package:job/widgets/company_card.dart';
-import 'package:job/widgets/company_card2.dart';
 import 'package:provider/provider.dart';
 
 class HotJob extends StatefulWidget {
@@ -56,13 +54,18 @@ class _HotJobState extends State<HotJob> {
                         MaterialPageRoute(
                           builder: (context) => JobDetail(
                             job: job.job,
+                            jobApplyStatus: job.isApplied,
                           ),
                         ),
                       );
                     },
                     child: index == 0
-                        ? CompanyCard(jobResponse: job)
-                        : CompanyCard2(jobResponse: job),
+                        ? CompanyCard(
+                            jobResponse: job,
+                            cardType: CardType.first,
+                          )
+                        : CompanyCard(
+                            jobResponse: job, cardType: CardType.rest),
                   );
                 },
               )
