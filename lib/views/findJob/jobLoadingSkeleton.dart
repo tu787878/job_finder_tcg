@@ -7,7 +7,7 @@ class JobLoadingSkeleton extends StatelessWidget {
   final double width;
   final DirectionType direction;
   const JobLoadingSkeleton(
-      {Key? key, this.width = 280, this.direction = DirectionType.row})
+      {Key? key, this.width = 300, this.direction = DirectionType.row})
       : super(key: key);
 
   @override

@@ -3,16 +3,23 @@ import 'package:job/constants.dart';
 import 'package:job/models/JobResponse.dart';
 import 'package:job/models/job_model.dart';
 
-class CompanyCard2 extends StatelessWidget {
+class StaffCard extends StatefulWidget {
   final JobResponse jobResponse;
-  CompanyCard2({required this.jobResponse});
+  final cardType;
+  const StaffCard({Key? key, required this.jobResponse, this.cardType})
+      : super(key: key);
 
   @override
+  _StaffCardState createState() => _StaffCardState();
+}
+
+class _StaffCardState extends State<StaffCard> {
+  @override
   Widget build(BuildContext context) {
-    JobModel job = jobResponse.job;
+    JobModel job = widget.jobResponse.job;
     return Container(
-      width: 300.0,
-      height: 200.0,
+      width: (MediaQuery.of(context).size.width - 60) * 0.5,
+      height: 300.0,
       margin: EdgeInsets.only(right: 15.0, bottom: 15.0),
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
@@ -31,8 +38,7 @@ class CompanyCard2 extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                    image:
-                        NetworkImage(jobResponse.job.business.businessLogoPath),
+                    image: NetworkImage(job.business.businessLogoPath),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -46,7 +52,7 @@ class CompanyCard2 extends StatelessWidget {
                         "€/h - " +
                         job.salaryTo.toString() +
                         "€/h",
-                    style: kTitleStyle,
+                    style: kTitleStyle.copyWith(color: Colors.black),
                   ),
                   SizedBox(
                     height: 10,
@@ -56,14 +62,6 @@ class CompanyCard2 extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: job.business.businessName,
-                          style: kSubtitleStyle,
-                        ),
-                        TextSpan(
-                          text: "  •  ",
-                          style: kSubtitleStyle,
-                        ),
-                        TextSpan(
-                          text: job.business.businessCategory.name,
                           style: kSubtitleStyle,
                         ),
                       ],
@@ -82,11 +80,12 @@ class CompanyCard2 extends StatelessWidget {
                   child: Text(
                 job.jobName,
                 style: kTitleStyle.copyWith(
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               )),
               Text(
-                jobResponse.subscribers.toString() + " đăng kí",
+                widget.jobResponse.subscribers.toString() + " đăng kí",
                 style: TextStyle(
                   color: Colors.black,
                 ),
@@ -116,6 +115,7 @@ class CompanyCard2 extends StatelessWidget {
                           child: Text(
                             e.name,
                             style: kSubtitleStyle.copyWith(
+                              color: Colors.black,
                               fontSize: 12.0,
                             ),
                           ),
@@ -123,16 +123,17 @@ class CompanyCard2 extends StatelessWidget {
                       )
                       .toList(),
                 ),
-                Container(
-                  height: 35,
-                  child: TextButton(
-                    child: Text("Đăng kí"),
-                    onPressed: () {
-                      // send api apply job
-                      print("job status: ${jobResponse.isApplied}");
-                    },
+                if (widget.jobResponse.isApplied)
+                  Container(
+                    height: 35,
+                    child: Text(
+                      "Đã đăng kí",
+                      style: kSubtitleStyle.copyWith(
+                        color: Colors.black,
+                        fontSize: 12.0,
+                      ),
+                    ),
                   ),
-                ),
               ],
             ),
           ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
+import 'package:job/models/JobResponse.dart';
 import 'package:job/models/query_search.dart';
 import 'package:job/services/api/job_api.dart';
 import 'package:job/views/findJob/jobLoadingSkeleton.dart';
 import 'package:job/views/findJob/job_detail.dart';
-import 'package:job/widgets/company_card2.dart';
+import 'package:job/widgets/company_card.dart';
 
 class NewJob extends StatefulWidget {
   const NewJob({Key? key, this.filter}) : super(key: key);
@@ -40,7 +41,7 @@ class _NewJobState extends State<NewJob> {
                 shrinkWrap: true,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  var job = newJobData[index];
+                  JobResponse job = newJobData[index];
                   return InkWell(
                       onTap: () {
                         Navigator.push(
@@ -48,11 +49,13 @@ class _NewJobState extends State<NewJob> {
                           MaterialPageRoute(
                             builder: (context) => JobDetail(
                               job: job.job,
+                              jobApplyStatus: job.isApplied,
                             ),
                           ),
                         );
                       },
-                      child: CompanyCard2(jobResponse: job));
+                      child: CompanyCard(
+                          jobResponse: job, cardType: CardType.rest));
                 },
               )
             : JobLoadingSkeleton(

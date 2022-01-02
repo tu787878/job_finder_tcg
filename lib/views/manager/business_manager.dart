@@ -70,7 +70,7 @@ class _BusinessManagerState extends State<BusinessManager> {
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        var job = jobs[index];
+                        AppliedJobResponse job = jobs[index];
                         return InkWell(
                           onTap: () {
                             Navigator.push(

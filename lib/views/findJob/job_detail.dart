@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:job/models/business_model.dart';
-import 'package:job/models/company.dart';
 import 'package:job/constants.dart';
 import 'package:job/models/job_model.dart';
-import 'package:job/models/job_tag_model.dart';
 import 'package:job/views/findJob/company_tab.dart';
 import 'package:job/views/findJob/description_tab.dart';
 
 class JobDetail extends StatelessWidget {
   final JobModel? job;
+  final bool? jobApplyStatus;
 
-  JobDetail({required this.job});
+  JobDetail({required this.job, this.jobApplyStatus = false});
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +172,7 @@ class JobDetail extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      "Apply for Job",
+                      !jobApplyStatus! ? "Apply for Job" : "Cancel",
                       style: kTitleStyle.copyWith(
                         color: Colors.white,
                       ),
