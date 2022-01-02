@@ -11,8 +11,9 @@ class UserApi {
 
   Future<List<AppliedJobResponse>> getAppliedJob(QuerySearch query) async {
     var token = box.get('access_token');
+    var userId = box.get('user_id');
     if (token != null) {
-      String url = host + "/api/user/appliedJob";
+      String url = host + "/api/user/${userId}/appliedJob";
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{

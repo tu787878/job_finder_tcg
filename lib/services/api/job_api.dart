@@ -11,6 +11,7 @@ import 'package:job/models/job_tag_model.dart';
 import 'package:job/models/query_search.dart';
 import 'package:job/models/tupel.dart';
 import 'package:job/models/url_model.dart';
+import 'package:job/services/auth/Auth.dart';
 
 class JobApi {
   late final Box box = Hive.box('authenticationBox');
@@ -19,7 +20,17 @@ class JobApi {
   Future<List<JobResponse>> getHotJobs(Jobquery query) async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/jobs/relate" + query.parseToParam();
+      String url = "";
+      if (AuthService().isBusiness()) {
+        var businessId = box.get('business_id');
+        url = host +
+            "/api/business/${businessId}/relateJob" +
+            query.parseToParam();
+      } else {
+        var userId = box.get('user_id');
+        url = host + "/api/user/${userId}/relateJob" + query.parseToParam();
+      }
+
       print(url);
       final response = await http.get(
         Uri.parse(url),
@@ -72,7 +83,7 @@ class JobApi {
   Future<List<JobCategoryModel>> getJobCategories() async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/jobs/categories";
+      String url = host + "/api/jobCategory";
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
@@ -104,7 +115,7 @@ class JobApi {
   Future<List<CityModel>> getCities() async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/jobs/cities";
+      String url = host + "/api/jobCity";
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
@@ -135,7 +146,7 @@ class JobApi {
   Future<List<JobTagModel>> getJobTags() async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/jobs/tags";
+      String url = host + "/api/jobTag";
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{

@@ -17,8 +17,9 @@ class BusinessApi {
 
   Future<BusinessModel> getBusiness() async {
     var token = box.get('access_token');
+    var businessId = box.get('business_id');
     if (token != null) {
-      String url = host + "/api/business";
+      String url = host + "/api/business/${businessId}";
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
@@ -72,7 +73,7 @@ class BusinessApi {
   Future<List<BusinessCategoryModel>> getBusinessCategories() async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/business/categories";
+      String url = host + "/api/businessCategory";
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
@@ -100,8 +101,9 @@ class BusinessApi {
 
   Future<bool> saveBusinessProfile(BusinessModel business, File? image) async {
     var token = box.get('access_token');
+    var businessId = box.get('business_id');
     if (token != null) {
-      String url = host + "/api/business";
+      String url = host + "/api/business/${businessId}";
       List<int> imageBytes = image!.readAsBytesSync();
       String baseimage = base64Encode(imageBytes);
       final response = await http.put(
@@ -132,8 +134,9 @@ class BusinessApi {
 
   Future<bool> newJob(JobModel job) async {
     var token = box.get('access_token');
+    var businessId = box.get('business_id');
     if (token != null) {
-      String url = host + "/api/business/jobs";
+      String url = host + "/api/business/${businessId}/jobs";
       String jobTags = "";
       if (job.jobTags.length > 0) {
         for (var i = 0; i < job.jobTags.length; i++) {
@@ -185,8 +188,9 @@ class BusinessApi {
 
   Future<List<AppliedJobResponse>> getAppliedJob(Jobquery query) async {
     var token = box.get('access_token');
+    var businessId = box.get('business_id');
     if (token != null) {
-      String url = host + "/api/user/appliedJob";
+      String url = host + "/api/business/${businessId}/appliedJob";
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{

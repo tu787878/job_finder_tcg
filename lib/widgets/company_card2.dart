@@ -31,8 +31,8 @@ class CompanyCard2 extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                    image: NetworkImage(
-                        "https://scontent.fsgn5-4.fna.fbcdn.net/v/t1.15752-9/269770473_952158428733888_3849989958639703565_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=ae9488&_nc_ohc=-rsg0cb_QesAX8Rxtaj&_nc_ht=scontent.fsgn5-4.fna&oh=03_AVJRoQcAHS1nIiZVAwVcv_F7tZYyB77mbgv0BFnIZq6M5Q&oe=61F59E4D"),
+                    image:
+                        NetworkImage(jobResponse.job.business.businessLogoPath),
                     fit: BoxFit.cover,
                   ),
                 ),
