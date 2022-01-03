@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
-import 'package:job/models/job_model.dart';
-import 'package:job/services/auth/Auth.dart';
-import 'package:job/views/findJob/company_tab.dart';
+import 'package:job/models/user.dart';
 import 'package:job/views/findJob/description_tab.dart';
+import 'package:job/views/findStaff/staff_description.dart';
+import 'package:job/views/findStaff/staff_history.dart';
 
-class JobDetail extends StatelessWidget {
-  final JobModel? job;
-  final bool? jobApplyStatus;
-
-  JobDetail({required this.job, this.jobApplyStatus = false});
+class StaffDetail extends StatefulWidget {
+  final UserModel staff;
+  const StaffDetail({Key? key, required this.staff}) : super(key: key);
 
   @override
+  _StaffDetailState createState() => _StaffDetailState();
+}
+
+class _StaffDetailState extends State<StaffDetail> {
+  @override
   Widget build(BuildContext context) {
+    UserModel staff = widget.staff;
     return Scaffold(
       backgroundColor: kSilver,
       appBar: AppBar(
@@ -26,7 +30,7 @@ class JobDetail extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          job!.jobName,
+          "${staff.firstName} ${staff.lastName}",
           style: kTitleStyle,
         ),
         centerTitle: true,
@@ -47,17 +51,19 @@ class JobDetail extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                constraints: BoxConstraints(maxHeight: 250.0),
+                constraints: BoxConstraints(maxHeight: 260.0),
                 child: Column(
                   children: <Widget>[
                     Center(
                       child: Container(
-                        width: 70.0,
-                        height: 70.0,
+                        width: 80.0,
+                        height: 80.0,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
                           image: DecorationImage(
-                            image: NetworkImage(job!.business.businessLogoPath),
+                            image: NetworkImage(staff.avatar != ""
+                                ? staff.avatar
+                                : "https://w7.pngwing.com/pngs/141/425/png-transparent-user-profile-computer-icons-avatar-profile-s-free-angle-rectangle-profile-cliparts-free-thumbnail.png"),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -65,23 +71,16 @@ class JobDetail extends StatelessWidget {
                     ),
                     SizedBox(height: 20.0),
                     Text(
-                      job!.jobName,
+                      staff.firstName,
                       style: kTitleStyle.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: 15.0),
-                    Text(
-                      job!.salaryFrom.toString() +
-                          "€/h - " +
-                          job!.salaryTo.toString() +
-                          "€/h",
-                      style: kSubtitleStyle,
-                    ),
                     SizedBox(height: 15.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: job!.jobTags
+                      children: staff.jobCategories
                           .map(
                             (e) => Container(
                               margin: EdgeInsets.symmetric(horizontal: 5.0),
@@ -120,7 +119,7 @@ class JobDetail extends StatelessWidget {
                         ),
                         tabs: [
                           Tab(text: "Description"),
-                          Tab(text: "Company"),
+                          Tab(text: "History"),
                         ],
                       ),
                     )
@@ -131,8 +130,8 @@ class JobDetail extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    DescriptionTab(job: job),
-                    CompanyTab(business: job!.business),
+                    StaffDescriptionTab(staff: staff),
+                    StaffHistory(),
                   ],
                 ),
               )
@@ -147,67 +146,40 @@ class JobDetail extends StatelessWidget {
           // margin: EdgeInsets.only(bottom: 25.0),
           color: Colors.white,
           child: Row(
-            children: [
-              if (!AuthService().isBusiness())
-                Container(
-                  width: 50.0,
-                  height: 50.0,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: kBlack.withOpacity(.5)),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: Icon(
-                    Icons.bookmark_border,
-                    color: kBlack,
-                  ),
-                ),
+            children: <Widget>[
+              // Container(
+              //   width: 50.0,
+              //   height: 50.0,
+              //   decoration: BoxDecoration(
+              //     border: Border.all(color: kBlack.withOpacity(.5)),
+              //     borderRadius: BorderRadius.circular(12.0),
+              //   ),
+              //   child: Icon(
+              //     Icons.bookmark_border,
+              //     color: kBlack,
+              //   ),
+              // ),
               SizedBox(width: 15.0),
-              AuthService().isBusiness()
-                  ? AuthService().isThisBusiness(job!.business.businessId)
-                      ? Expanded(
-                          child: SizedBox(
-                            height: 50.0,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                primary: kBlack,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                              ),
-                              child: Text(
-                                "Edit",
-                                style: kTitleStyle.copyWith(
-                                  color: !jobApplyStatus!
-                                      ? Colors.white
-                                      : Colors.red,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      : Text("")
-                  : Expanded(
-                      child: SizedBox(
-                        height: 50.0,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            primary: kBlack,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                          ),
-                          child: Text(
-                            !jobApplyStatus! ? "Apply for Job" : "Cancel",
-                            style: kTitleStyle.copyWith(
-                              color:
-                                  !jobApplyStatus! ? Colors.white : Colors.red,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
+              // Expanded(
+              //   child: SizedBox(
+              //     height: 50.0,
+              //     child: ElevatedButton(
+              //       onPressed: () {},
+              //       style: ElevatedButton.styleFrom(
+              //         primary: kBlack,
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(12.0),
+              //         ),
+              //       ),
+              //       child: Text(
+              //         !jobApplyStatus! ? "Apply for Job" : "Cancel",
+              //         style: kTitleStyle.copyWith(
+              //           color: Colors.white,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

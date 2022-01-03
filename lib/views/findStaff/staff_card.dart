@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
-import 'package:job/models/JobResponse.dart';
-import 'package:job/models/job_model.dart';
+import 'package:job/models/user.dart';
 
 class StaffCard extends StatefulWidget {
-  final JobResponse jobResponse;
+  final UserModel staff;
   final cardType;
-  const StaffCard({Key? key, required this.jobResponse, this.cardType})
+  const StaffCard({Key? key, required this.staff, this.cardType})
       : super(key: key);
 
   @override
@@ -16,10 +15,10 @@ class StaffCard extends StatefulWidget {
 class _StaffCardState extends State<StaffCard> {
   @override
   Widget build(BuildContext context) {
-    JobModel job = widget.jobResponse.job;
+    UserModel staff = widget.staff;
     return Container(
-      width: (MediaQuery.of(context).size.width - 60) * 0.5,
-      height: 300.0,
+      width: (MediaQuery.of(context).size.width - 50) * 0.5,
+      height: 200.0,
       margin: EdgeInsets.only(right: 15.0, bottom: 15.0),
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
@@ -27,116 +26,78 @@ class _StaffCardState extends State<StaffCard> {
         color: Colors.white,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: 50.0,
-                height: 50.0,
+                width: 70.0,
+                height: 70.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                    image: NetworkImage(job.business.businessLogoPath),
+                    image: NetworkImage(staff.avatar != ""
+                        ? staff.avatar
+                        : "https://w7.pngwing.com/pngs/141/425/png-transparent-user-profile-computer-icons-avatar-profile-s-free-angle-rectangle-profile-cliparts-free-thumbnail.png"),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    job.salaryFrom.toString() +
-                        "€/h - " +
-                        job.salaryTo.toString() +
-                        "€/h",
-                    style: kTitleStyle.copyWith(color: Colors.black),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: job.business.businessName,
-                          style: kSubtitleStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
           SizedBox(height: 15.0),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
                   child: Text(
-                job.jobName,
+                "${staff.firstName} ${staff.lastName}",
+                textAlign: TextAlign.center,
                 style: kTitleStyle.copyWith(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               )),
-              Text(
-                widget.jobResponse.subscribers.toString() + " đăng kí",
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
             ],
           ),
           SizedBox(height: 15.0),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: job.jobTags
-                      .map(
-                        (e) => Container(
-                          height: 35,
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.only(right: 10.0),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 12.0, vertical: 5.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                            color: Colors.grey[200],
-                          ),
-                          child: Text(
-                            e.name,
-                            style: kSubtitleStyle.copyWith(
-                              color: Colors.black,
-                              fontSize: 12.0,
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
-                if (widget.jobResponse.isApplied)
-                  Container(
-                    height: 35,
-                    child: Text(
-                      "Đã đăng kí",
-                      style: kSubtitleStyle.copyWith(
-                        color: Colors.black,
-                        fontSize: 12.0,
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
+          // Expanded(
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     crossAxisAlignment: CrossAxisAlignment.end,
+          //     children: [
+          //       Row(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         children: staff.jobCategories
+          //             .map(
+          //               (e) => Container(
+          //                 height: 35,
+          //                 alignment: Alignment.center,
+          //                 margin: EdgeInsets.only(right: 10.0),
+          //                 padding: EdgeInsets.symmetric(
+          //                     horizontal: 12.0, vertical: 5.0),
+          //                 decoration: BoxDecoration(
+          //                   borderRadius: BorderRadius.circular(12.0),
+          //                   color: Colors.grey[200],
+          //                 ),
+          //                 child: Text(
+          //                   e.name,
+          //                   style: kSubtitleStyle.copyWith(
+          //                     color: Colors.black,
+          //                     fontSize: 12.0,
+          //                   ),
+          //                 ),
+          //               ),
+          //             )
+          //             .toList(),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );

@@ -1,15 +1,11 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:job/models/JobResponse.dart';
-import 'package:job/models/business_model.dart';
 import 'package:job/models/city_model.dart';
 import 'package:job/models/job_category_model.dart';
-import 'package:job/models/job_model.dart';
 import 'package:job/models/job_tag_model.dart';
 import 'package:job/models/query_search.dart';
-import 'package:job/models/tupel.dart';
 import 'package:job/models/url_model.dart';
 import 'package:job/services/auth/Auth.dart';
 
@@ -31,7 +27,7 @@ class JobApi {
         url = host + "/api/user/${userId}/relateJob" + query.parseToParam();
       }
 
-      print(url);
+      // print(url);
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
