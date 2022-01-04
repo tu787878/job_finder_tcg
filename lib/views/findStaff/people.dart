@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
 import 'package:job/models/job_filter_model.dart';
 import 'package:job/views/findJob/findJob.dart';
-import 'package:job/views/findJob/hotJob.dart';
 import 'package:job/views/findJob/newJob.dart';
+import 'package:job/views/findStaff/all_staff.dart';
+import 'package:job/views/findStaff/recommend_staff.dart';
 import 'package:job/widgets/appbar.dart';
 import 'package:provider/provider.dart';
 
@@ -38,9 +39,9 @@ class _FindStaffState extends State<FindStaff> {
                   SizedBox(height: 25.0),
                   FindJob(),
                   SizedBox(height: 25.0),
-                  HotJob(),
+                  RecommendStaff(),
                   SizedBox(height: 25.0),
-                  NewJob(filter: filter)
+                  AllStaff(filter: filter)
                 ],
               ),
             ),

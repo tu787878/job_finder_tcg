@@ -23,8 +23,8 @@ class AuthService {
       var result = json.decode(response.body);
 
       if (result['code'] == 0) {
-        print("ok");
-        print(result['data']['account']['businessId']);
+        // print("ok");
+        // print(result['data']['account']['businessId']);
         box.put("account_id", result['data']['account']['accountId']);
         // box.put("username", result['data']['userName']);
         box.put("business", result['data']['account']['business']);

@@ -21,8 +21,6 @@ class _HotJobState extends State<HotJob> {
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    print("object");
-    print(filter.getJobTo().toString());
     var result = await JobApi().getHotJobs(filter.parseToJobQuery(10, 0));
     setState(() => {this.relateJobData = result});
   }

@@ -14,6 +14,7 @@ class UserModel {
   final int gender;
   final List<JobCategoryModel> jobCategories;
   final String description;
+  final String avatar;
 
   const UserModel({
     required this.id,
@@ -28,6 +29,7 @@ class UserModel {
     required this.gender,
     required this.jobCategories,
     required this.description,
+    required this.avatar,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -46,6 +48,7 @@ class UserModel {
           .map<JobCategoryModel>((data) => JobCategoryModel.fromJson(data))
           .toList(),
       description: json['description'] != null ? json['description'] : '',
+      avatar: json['avatar'] != null ? json['avatar'] : '',
     );
   }
 }

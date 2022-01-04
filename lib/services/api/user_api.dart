@@ -42,7 +42,7 @@ class UserApi {
   Future<List<UserModel>> getRecommendStaff(QuerySearch query) async {
     var token = box.get('access_token');
     if (token != null) {
-      String url = host + "/api/user/";
+      String url = host + "/api/user";
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
@@ -53,7 +53,7 @@ class UserApi {
 
       if (response.statusCode == 200 || response.statusCode == 400) {
         List<UserModel> staffList =
-            json.decode(response.body)['data']['jobs'].map<UserModel>((data) {
+            json.decode(response.body)['data']['users'].map<UserModel>((data) {
           return new UserModel.fromJson(data);
         }).toList();
 
