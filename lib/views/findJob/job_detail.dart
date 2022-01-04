@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:job/constants.dart';
 import 'package:job/models/job_model.dart';
+import 'package:job/services/auth/Auth.dart';
 import 'package:job/views/findJob/company_tab.dart';
 import 'package:job/views/findJob/description_tab.dart';
 
@@ -160,26 +161,50 @@ class JobDetail extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 15.0),
-              Expanded(
-                child: SizedBox(
-                  height: 50.0,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: kBlack,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
+              AuthService().isBusiness()
+                  ? Expanded(
+                      child: SizedBox(
+                        height: 50.0,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            primary: kBlack,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                          child: Text(
+                            AuthService()
+                                    .isThisBusiness(job!.business.businessId)
+                                ? "Edit"
+                                : "",
+                            style: kTitleStyle.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      !jobApplyStatus! ? "Apply for Job" : "Cancel",
-                      style: kTitleStyle.copyWith(
-                        color: Colors.white,
+                    )
+                  : Expanded(
+                      child: SizedBox(
+                        height: 50.0,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            primary: kBlack,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                          child: Text(
+                            !jobApplyStatus! ? "Apply for Job" : "Cancel",
+                            style: kTitleStyle.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              )
+                    )
             ],
           ),
         ),
